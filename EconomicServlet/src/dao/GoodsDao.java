@@ -2,7 +2,9 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -43,9 +45,13 @@ public class GoodsDao {
 	
 	
 	public List<Good> findAll(){
-		List<Good> ans;
-		ans = jdbcTemplate.query(sqlSelectAll, rowMapper);
-		return ans;
+		return jdbcTemplate.query(sqlSelectAll, rowMapper);
 	}
 	
+	
+	public List<Good> findByCategory(String category){
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("category", category);
+		return namedParameterJdbcTemplate.query(sqlByCategory, parameters, rowMapper);
+	}
 }

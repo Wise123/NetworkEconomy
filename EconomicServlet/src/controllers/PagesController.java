@@ -27,7 +27,7 @@ public class PagesController {
 		
 		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
 		
-		Good qwe = goodsDao.findAll().get(1);
+		Good qwe = goodsDao.findByCategory(null).get(0);
 		System.out.println(qwe.getName());
 		System.out.println(qwe.getIdGood());
 		System.out.println(qwe.getIdProvider());

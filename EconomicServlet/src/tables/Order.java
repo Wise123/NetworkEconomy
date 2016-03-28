@@ -16,6 +16,8 @@ public class Order {
 		this.price = price;
 		this.status = status;
 	}
+	public Order() {
+	}
 	public int getIdOrder() {
 		return idOrder;
 	}
