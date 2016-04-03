@@ -5,7 +5,7 @@ public class Client {
 	int idAdmin;
 	String name;
 	String lastName;
-	String surName;
+	String surname;
 	String city;
 	String country;
 	int postIndex;
@@ -42,10 +42,10 @@ public class Client {
 		this.lastName = lastName;
 	}
 	public String getSurName() {
-		return surName;
+		return surname;
 	}
-	public void setSurName(String surName) {
-		this.surName = surName;
+	public void setSurName(String surname) {
+		this.surname = surname;
 	}
 	public String getCity() {
 		return city;
@@ -71,17 +71,20 @@ public class Client {
 	public void setPassword(int password) {
 		this.password = password;
 	}
-	public Client(int idClient, int idAdmin, String name, String lastName, String surName, String city, String country,
+	public Client(int idClient, int idAdmin, String name, String lastName, String surname, String city, String country,
 			int postIndex, int password) {
 		super();
 		this.idClient = idClient;
 		this.idAdmin = idAdmin;
 		this.name = name;
 		this.lastName = lastName;
-		this.surName = surName;
+		this.surname = surname;
 		this.city = city;
 		this.country = country;
 		this.postIndex = postIndex;
 		this.password = password;
+	}
+	public Client() {
+		// TODO Auto-generated constructor stub
 	}
 }

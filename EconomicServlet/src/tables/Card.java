@@ -15,6 +15,9 @@ public class Card {
 		this.yearOfEnd = yearOfEnd;
 	}
 	
+	public Card() {
+	}
+
 	public int getIdCard() {
 		return idCard;
 	}

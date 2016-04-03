@@ -14,23 +14,25 @@ import util.ApplicationContextProvider;
  
 
 @Controller
-public class PagesController {
+public class DataController {
 	
-	public PagesController(ApplicationContextProvider arg) {
+	public DataController(ApplicationContextProvider arg) {
 		this.applicationContextProvider = arg;
 	}
 	
 	public ApplicationContextProvider applicationContextProvider;
 	
-	@RequestMapping("/index")
-	public ModelAndView getIndexView(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("/WEB-INF/jsp/index.jsp");
+	@RequestMapping("/getGoodsByCategory")
+	public void getGoodsByCategory(HttpServletRequest request, HttpServletResponse response) {
+		
+		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
+		
 	}
 	
 	
-	@RequestMapping("/login")
+	/*@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("/WEB-INF/jsp/login.jsp");
-	}
+	}*/
 	
 }

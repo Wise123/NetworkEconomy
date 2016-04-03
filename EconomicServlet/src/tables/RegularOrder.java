@@ -1,26 +1,29 @@
 package tables;
 
 public class RegularOrder {
-	int idRecord;
+	int idRegord;
 	int idClient;
 	int countOfGoods;
 	String name;
 	int price;
 	int countOfMonth;
-	public RegularOrder(int idRecord, int idClient, int countOfGoods, String name, int price, int countOfMonth) {
+	public RegularOrder(int idRegord, int idClient, int countOfGoods, String name, int price, int countOfMonth) {
 		super();
-		this.idRecord = idRecord;
+		this.idRegord = idRegord;
 		this.idClient = idClient;
 		this.countOfGoods = countOfGoods;
 		this.name = name;
 		this.price = price;
 		this.countOfMonth = countOfMonth;
 	}
-	public int getIdRecord() {
-		return idRecord;
+	public RegularOrder() {
+		// TODO Auto-generated constructor stub
 	}
-	public void setIdRecord(int idRecord) {
-		this.idRecord = idRecord;
+	public int getIdRegord() {
+		return idRegord;
+	}
+	public void setIdRegord(int idRegord) {
+		this.idRegord = idRegord;
 	}
 	public int getIdClient() {
 		return idClient;

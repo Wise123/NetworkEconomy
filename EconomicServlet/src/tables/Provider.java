@@ -12,6 +12,9 @@ public class Provider {
 		this.title = title;
 		this.description = description;
 	}
+	public Provider() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdProvider() {
 		return idProvider;
 	}

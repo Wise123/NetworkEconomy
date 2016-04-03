@@ -14,6 +14,10 @@ public class Admin {
 		this.email = email;
 	}
 
+	public Admin() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdAdmin() {
 		return idAdmin;
 	}

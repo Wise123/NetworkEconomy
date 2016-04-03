@@ -17,12 +17,36 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url" value="jdbc:h2:/WEB-INF/h2" />
+		<property name="url" value="jdbc:h2:tcp://localhost:9092/~/test" />
 		<property name="username" value="test" />
 		<property name="password" value="" />
 	</bean>
 	
+	<bean id="AdminsDao" class="dao.AdminsDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="CardsDao" class="dao.CardsDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="ClientsDao" class="dao.CardsDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
 	<bean id="GoodsDao" class="dao.GoodsDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="OrdersDao" class="dao.OrdersDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="PrvidersDao" class="dao.ProvidersDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	<bean id="RegularOrdersDao" class="dao.RegularOrdersDao">
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
@@ -31,4 +55,13 @@
 	<bean id="PagesController" class="controllers.PagesController">
 		<constructor-arg ref="applicationContextProvder"/>
 	</bean>
+	
+	<bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
+		<constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092"/>
+	</bean>
+	<bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+		<constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
+	</bean>
+	
+	
 </beans>
