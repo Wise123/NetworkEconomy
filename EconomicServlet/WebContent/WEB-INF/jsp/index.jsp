@@ -31,8 +31,8 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="" ui-sref="home"><i class="glyphicon glyphicon-home"></i></a></li>
-						<li><a href="" ui-sref="catalog({category:'jeans'})">Джинсы</a></li>
-						<li><a href="" ui-sref="catalog({category:'tshirts'})">Футболки</a></li>
+						<li><a href="" ui-sref="catalog({category:'Джинсы'})">Джинсы</a></li>
+						<li><a href="" ui-sref="catalog({category:'Футболки'})">Футболки</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class=""><a href="" ui-sref="cart"><i class="glyphicon glyphicon-shopping-cart"></i> {{(getCart()).length}}</a></li>
@@ -53,6 +53,7 @@
 			document.location.href = "login";
 			
 		}
+		var urlPath = '<%= request.getContextPath() %>';
 	</script>
 	
 	

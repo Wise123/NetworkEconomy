@@ -1,3 +1,22 @@
  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
 
-<h1>Корзина</h1>
+<div class="col-xl-8 .col-xl-offset-2" style="margin-top:50px;">
+	
+	<h1>Корзина</h1>
+	
+	<table class="table table-hover">
+		<tr ng-repeat="i in (getCart())">
+			<td>{{i.name}}</td>
+			<td>{{i.price}}р.</td>
+		</tr>
+		
+		<tr>
+			<td><b>Итого</b></td>
+			<td>{{cartSum()}}р.</td>
+		</tr>
+	</table>
+	
+	<div style="text-align:center;">
+		<button class="btn btn-default" style="float:center">Оформить заказ</button>
+	</div>
+</div>
