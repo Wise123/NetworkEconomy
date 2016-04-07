@@ -2,15 +2,15 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import tables.RegularOrder;
 
@@ -28,7 +28,7 @@ public class RegularOrdersDao {
 	
 	String sqlDeleteById = "delete from regular_orders where id_regord=:id_regord";
 	
-	public RegularOrdersDao(DriverManagerDataSource dataSource){
+	public RegularOrdersDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}

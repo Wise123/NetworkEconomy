@@ -2,15 +2,15 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import tables.Provider;
 
@@ -28,7 +28,7 @@ public class ProvidersDao {
 	
 	String sqlDeleteById = "delete from providers where id_provider=:id_provider";
 	
-	public ProvidersDao(DriverManagerDataSource dataSource){
+	public ProvidersDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}

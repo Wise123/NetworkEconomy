@@ -6,10 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import tables.Client;
 
@@ -31,7 +32,7 @@ public class ClientsDao {
 	
 	String sqlDeleteById = "delete from clients where id_client=:id_client";
 	
-	public ClientsDao(DriverManagerDataSource dataSource){
+	public ClientsDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}

@@ -6,11 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 import tables.Good;
 
 public class GoodsDao {
@@ -30,7 +30,7 @@ public class GoodsDao {
 	
 	String sqlDeleteById = "delete from goods where id_good=:id_good";
 	
-	public GoodsDao(DriverManagerDataSource dataSource){
+	public GoodsDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
