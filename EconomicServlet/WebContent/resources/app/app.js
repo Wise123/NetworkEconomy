@@ -14,6 +14,7 @@ var client = {
 		password: 123456,
 };
 
+
 app.controller('mainController', ['$scope', function($scope) {
 	$scope.getCart = function(){
 		return cart;
@@ -26,7 +27,7 @@ app.controller('mainController', ['$scope', function($scope) {
 }]);
 
 app.config(function($stateProvider, $urlRouterProvider){
-	$urlRouterProvider.otherwise("");
+	$urlRouterProvider.otherwise("login");
 	
 	$stateProvider.state("home", {
 		url: "/home",
@@ -41,5 +42,9 @@ app.config(function($stateProvider, $urlRouterProvider){
 		url: "/cart",
 		templateUrl:"resources/app/cart/cartView.html",
 		controller:"cartController"
+	}).state("login", {
+		url: "/login",
+		templateUrl:"resources/app/login/loginView.html",
+		controller:"loginController"
 	});
 });

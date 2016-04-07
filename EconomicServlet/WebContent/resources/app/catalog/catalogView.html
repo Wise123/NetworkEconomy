@@ -4,15 +4,16 @@
 	
 	<h1>Каталог {{category.toLowerCase()}}</h1>
 	
-	<div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-repeat="i in catalog">
+	<div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-repeat="i in catalog | filter:countOnStock=0 ">
 		<div class="thumbnail">
 			<img ng-src="{{urlPath+i.imagePath}}" alt="{{i.name}}" style="height:200px">
 			<div class="caption" style="height:250px;">
 				<h3>{{i.name}}</h3>
 				<p style="height:100px;overflow:auto;">{{i.description}}</p>
-				<p><b>{{i.price}}р.</b></p>
+				<p><b>{{i.price}}р.</b><span style="float:right;">в наличии {{i.countOnStock}} </span></p>
 				<p>
-					<a href="" class="btn btn-default" role="button" ng-click="addToCart(i)" ng-if="!isInCart(i)">В корзину</a>
+					<input type="number" min="0" style="display:inline; width:50%;" class="form-control" ng-model="i.number"></input>
+					<a href="" class="btn btn-default" role="button" ng-click="i.number!= 0 ? addToCart(i):''" ng-if="!isInCart(i)">В корзину</a>
 					<a href="" class="btn btn-default" role="button" ng-click="removeFromCart(i)" ng-if="isInCart(i)">Из корзины</a>
 				</p>
 			</div>

@@ -25,10 +25,10 @@ public class PagesController {
 		return new ModelAndView("/WEB-INF/jsp/index.jsp");
 	}
 	
-	
+	/*
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("/WEB-INF/jsp/login.jsp");
-	}
+	}*/
 	
 }
