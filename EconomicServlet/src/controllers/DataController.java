@@ -45,6 +45,24 @@ public class DataController {
 		}
 	}
 	
+	@RequestMapping("/getAllGoods")
+	public void getAllGoods(HttpServletRequest request, HttpServletResponse response) {
+		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			mapper.writeValue(response.getOutputStream(), goodsDao.findAll());
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	/*@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {

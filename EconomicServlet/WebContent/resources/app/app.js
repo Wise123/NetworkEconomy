@@ -46,5 +46,22 @@ app.config(function($stateProvider, $urlRouterProvider){
 		url: "/login",
 		templateUrl:"resources/app/login/loginView.html",
 		controller:"loginController"
-	});
+	}).state("admin", {
+		url: "/admin",
+		templateUrl:"resources/app/admin/adminView.html",
+		controller:"adminController"
+	}).state("admin.goodsEdit", {
+		url: "/goodsEdit",
+		templateUrl:"resources/app/admin/goodsEdit/goodsEditView.html",
+		controller:"goodsEditController"
+	}).state("admin.ordersEdit", {
+		url: "/ordersEdit",
+		templateUrl:"resources/app/admin/ordersEdit/ordersEditView.html",
+		controller:"ordersEditController"
+	}).state("admin.regularOrdersEdit", {
+		url: "/regularOrdersEdit",
+		templateUrl:"resources/app/admin/regularOrdersEdit/regularOrdersEditView.html",
+		controller:"regularOrdersEditController"
+	})
+	;
 });

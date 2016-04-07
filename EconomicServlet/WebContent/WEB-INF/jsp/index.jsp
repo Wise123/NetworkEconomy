@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Index</title>
+		<title>RisShop</title>
 		
 		<script type="text/javascript" src="resources/lib/jquery-2.2.1.js"></script>
 		
@@ -33,6 +33,7 @@
 						<li><a href="" ui-sref="home"><i class="glyphicon glyphicon-home"></i></a></li>
 						<li><a href="" ui-sref="catalog({category:'Джинсы'})">Джинсы</a></li>
 						<li><a href="" ui-sref="catalog({category:'Футболки'})">Футболки</a></li>
+						<li><a href="" ui-sref="admin">Администирование</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class=""><a href="" ui-sref="cart"><i class="glyphicon glyphicon-shopping-cart"></i> {{(getCart()).length}}</a></li>
@@ -61,4 +62,8 @@
 	<script type="text/javascript" src="resources/app/catalog/catalogController.js"></script>
 	<script type="text/javascript" src="resources/app/cart/cartController.js"></script>
 	<script type="text/javascript" src="resources/app/login/loginController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/adminController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/goodsEdit/goodsEditController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/ordersEdit/ordersEditController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/regularOrdersEdit/regularOrdersEditController.js"></script>
 </html>

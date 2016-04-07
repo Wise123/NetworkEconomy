@@ -1,0 +1,29 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+<h1>Редактирование товаров</h1>
+
+<table class="table table-hover" >
+		
+		<tr>
+			<td><b>id</b></td>
+			<td><b>Поставщик</b></td>
+			<td><b>Наименование</b></td>
+			<td><b>Цена</b></td>
+			<td><b>Описание</b></td>
+			<td><b>Категория</b></td>
+			<td><b>Остаток</b></td>
+			<td><b>Изображение</b></td>
+		</tr>
+		
+		<tr ng-repeat="i in goods">
+			<td>{{i.idGood}}</td>
+			<td><input type="text" class="form-control" ng-model="i.idProvider"></input></td>
+			<td><input type="text" class="form-control" ng-model="i.name"></input></td>
+			<td><input type="number" min="0" class="form-control" ng-model="i.price"></input></td>
+			<td><input type="text" class="form-control" ng-model="i.description"></input></td>
+			<td><input type="text" class="form-control" ng-model="i.category"></input></td>
+			<td><input type="number" min="0" class="form-control" ng-model="i.countOnStock"></input></td>
+			<td><input type="file"></input></td>
+		</tr>
+		
+		
+	</table>
