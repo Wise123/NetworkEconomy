@@ -12,18 +12,28 @@
 			<td><b>Категория</b></td>
 			<td><b>Остаток</b></td>
 			<td><b>Изображение</b></td>
+			<td></td>
 		</tr>
 		
 		<tr ng-repeat="i in goods">
 			<td>{{i.idGood}}</td>
-			<td><input type="text" class="form-control" ng-model="i.idProvider"></input></td>
+			<td>
+				<select class="form-control" required ng-model="i.idProvider" ng-options="j.idProvider as j.title for j in providers">
+				</select>
+				
+			</td>
 			<td><input type="text" class="form-control" ng-model="i.name"></input></td>
 			<td><input type="number" min="0" class="form-control" ng-model="i.price"></input></td>
 			<td><input type="text" class="form-control" ng-model="i.description"></input></td>
 			<td><input type="text" class="form-control" ng-model="i.category"></input></td>
 			<td><input type="number" min="0" class="form-control" ng-model="i.countOnStock"></input></td>
 			<td><input type="file"></input></td>
+			<td><i class="glyphicon glyphicon-remove" ng-click="removeGood(i)"></i></td>
 		</tr>
+		<tr>
+			<td colspan=8>
+				<button class="btn btn-default btn-block" ng-click="addGood()">Добавить</button>
+			</td>
 		
-		
+		</tr>
 	</table>

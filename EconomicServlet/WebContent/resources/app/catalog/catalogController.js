@@ -10,7 +10,7 @@
 		
 		$http({
 			method: 'GET',
-			url: urlPath+'/getGoodsByCategory',
+			url: urlPath+'/getGoodsByCategoryWithProividerName',
 			params:{category:$stateParams.category}
 		}).then(function successCallback(response) {
 			$scope.catalog = response.data;

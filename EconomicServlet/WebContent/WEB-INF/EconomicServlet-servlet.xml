@@ -30,7 +30,7 @@
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
-	<bean id="ClientsDao" class="dao.CardsDao">
+	<bean id="ClientsDao" class="dao.ClientsDao">
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
@@ -42,7 +42,7 @@
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
-	<bean id="PrvidersDao" class="dao.ProvidersDao">
+	<bean id="ProvidersDao" class="dao.ProvidersDao">
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	

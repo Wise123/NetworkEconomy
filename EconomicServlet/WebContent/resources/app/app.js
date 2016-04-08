@@ -15,7 +15,7 @@ var client = {
 };
 
 
-app.controller('mainController', ['$scope', function($scope) {
+app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 	$scope.getCart = function(){
 		return cart;
 	}
@@ -23,6 +23,18 @@ app.controller('mainController', ['$scope', function($scope) {
 	$scope.getClient = function(){
 		return client;
 	}
+	
+	
+	$scope.categories = [];
+	
+	$http({
+		method: 'GET',
+		url: urlPath+'/getAllCategories',
+	}).then(function successCallback(response) {
+		$scope.categories = response.data;
+	}, function errorCallback(response) {
+		console.log("Ошибка при получении категорий");
+	});
 	
 }]);
 

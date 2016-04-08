@@ -2,7 +2,7 @@ package tables;
 
 public class Good {
 	int idGood;
-	int idProvider;
+	String idProvider;
 	String name;
 	int price;
 	String description;
@@ -22,10 +22,10 @@ public class Good {
 	public void setIdGood(int idGood) {
 		this.idGood = idGood;
 	}
-	public int getIdProvider() {
+	public String getIdProvider() {
 		return idProvider;
 	}
-	public void setIdProvider(int idProvider) {
+	public void setIdProvider(String idProvider) {
 		this.idProvider = idProvider;
 	}
 	public String getName() {
@@ -58,7 +58,7 @@ public class Good {
 	public void setCountOnStock(int countOnStock) {
 		this.countOnStock = countOnStock;
 	}
-	public Good(int idGood, int idProvider, String name, int price, String description, String category,
+	public Good(int idGood, String idProvider, String name, int price, String description, String category,
 			int countOnStock, String imagePath) {
 		super();
 		this.idGood = idGood;

@@ -31,8 +31,8 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="" ui-sref="home"><i class="glyphicon glyphicon-home"></i></a></li>
-						<li><a href="" ui-sref="catalog({category:'Джинсы'})">Джинсы</a></li>
-						<li><a href="" ui-sref="catalog({category:'Футболки'})">Футболки</a></li>
+						<li ng-repeat="i in categories"><a href="" ui-sref="catalog({category:i})">{{i}}</a></li>
+						<!-- <li><a href="" ui-sref="catalog({category:'Футболки'})">Футболки</a></li> -->
 						<li><a href="" ui-sref="admin">Администирование</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">

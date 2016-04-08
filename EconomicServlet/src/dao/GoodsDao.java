@@ -21,6 +21,12 @@ public class GoodsDao {
 	String sqlSelectAll = "select * from goods";
 	String sqlByCategory = "select * from goods where category=:category";
 	String sqlById = "select * from goods where id_good=:id_good";
+	String sqlSelectAllCategories = "select category from goods group by category";
+	
+	
+	String sqlSelectAllWithProviderName = "select goods.id_good, providers.title as id_provider, goods.name,goods.price,goods.description,goods.category,goods.count_on_stock,goods.image_path from goods inner join providers on goods.id_good=providers.id_provider";
+	String sqlSelectByCategoryWithProviderName = "select goods.id_good, providers.title as id_provider, goods.name,goods.price,goods.description,goods.category,goods.count_on_stock,goods.image_path from goods inner join providers on goods.id_good=providers.id_provider where goods.category=:category";
+	
 	
 	String sqlUpdateById = "update goods set " +
 			"id_provider=:id_provider, name=:name, "
@@ -40,7 +46,7 @@ public class GoodsDao {
 		public Good mapRow(ResultSet rs, int rownumber) throws SQLException{
 			Good temp=new Good();
 			temp.setIdGood(rs.getInt("id_good"));
-			temp.setIdProvider(rs.getInt("id_provider"));
+			temp.setIdProvider(rs.getString("id_provider"));
 			temp.setName(rs.getString("name"));
 			temp.setPrice(rs.getInt("price"));
 			temp.setDescription(rs.getString("description"));
@@ -55,6 +61,10 @@ public class GoodsDao {
 	
 	public List<Good> findAll(){
 		return jdbcTemplate.query(sqlSelectAll, rowMapper);
+	}
+	
+	public List<Good> findAllWithProviderName(){
+		return jdbcTemplate.query(sqlSelectAllWithProviderName, rowMapper);
 	}
 	
 	
@@ -74,7 +84,7 @@ public class GoodsDao {
 	
 	public void update(Good arg){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_provider", Integer.toString(arg.getIdProvider()));
+		parameters.put("id_provider", arg.getIdProvider());
 		parameters.put("name", arg.getName());
 		parameters.put("price", Integer.toString(arg.getPrice()));
 		parameters.put("description", arg.getDescription());
@@ -89,6 +99,21 @@ public class GoodsDao {
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_good", Integer.toString(id));
 		namedParameterJdbcTemplate.update(sqlDeleteById, parameters);
+	}
+	
+	public String[] selectAllCategories(){
+		List<Map<String, Object>> temp =  jdbcTemplate.queryForList(sqlSelectAllCategories);
+		String[] ans = new String[temp.size()];
+		for (Map<String, Object> i : temp){
+			ans[temp.indexOf(i)] = (String) i.get("category");
+		}
+		return ans;
+	}
+	
+	public List<Good> findByCategoryWithProviderName(String category){
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("category", category);
+		return namedParameterJdbcTemplate.query(sqlSelectByCategoryWithProviderName, parameters, rowMapper);
 	}
 	
 }
