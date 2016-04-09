@@ -18,6 +18,8 @@ public class GoodsDao {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	JdbcTemplate jdbcTemplate;
 	
+	String sqlCreate = "INSERT INTO goods(id_good, id_provider, name, price, description, category, count_on_stock, image_path) VALUES (:id_good, :id_provider, :name, :price, :description, :category, :count_on_stock, :image_path)";
+	
 	String sqlSelectAll = "select * from goods";
 	String sqlByCategory = "select * from goods where category=:category";
 	String sqlById = "select * from goods where id_good=:id_good";
@@ -114,6 +116,19 @@ public class GoodsDao {
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("category", category);
 		return namedParameterJdbcTemplate.query(sqlSelectByCategoryWithProviderName, parameters, rowMapper);
+	}
+
+	public void create(Good arg) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_provider", arg.getIdProvider());
+		parameters.put("name", arg.getName());
+		parameters.put("price", Integer.toString(arg.getPrice()));
+		parameters.put("description", arg.getDescription());
+		parameters.put("category", arg.getCategory());
+		parameters.put("count_on_stock", Integer.toString(arg.getCountOnStock()));
+		parameters.put("image_path", arg.getImagePath());
+		parameters.put("id_good", Integer.toString(arg.getIdGood()));
+		namedParameterJdbcTemplate.update(sqlCreate,parameters);
 	}
 	
 }

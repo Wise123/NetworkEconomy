@@ -83,7 +83,7 @@ FOREIGN KEY (id_client) REFERENCES clients (id_client)
 INSERT INTO admins (id_admin, login, password, email) VALUES (1, 'Skorb', 1234589, 'selukoff2010@yandex.ru');
 INSERT INTO admins (id_admin, login, password, email) VALUES (2, 'Qwerty', 908712, 'kissmyass@gmail.com');
 
-INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password) VALUES (1,1,'Дмитрий', 'Александрович', 'Селуков', 'Пермь', 'Россия', 614000, 1234589);
+INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password	) VALUES (1,1,'Дмитрий', 'Александрович', 'Селуков', 'Пермь', 'Россия', 614000, 1234589);
 INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password) VALUES (2,2,'Александр', 'Иванович', 'Бородач', 'Москва', 'Россия', 246091, 908712);
 INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password) VALUES (3, NULL , 'Михаил', 'Сергеевич', 'Тимченко', 'Брянск', 'Россия', 241018, 785641);
 

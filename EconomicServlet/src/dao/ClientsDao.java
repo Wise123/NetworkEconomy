@@ -25,12 +25,14 @@ public class ClientsDao {
 	
 	String sqlUpdateById = "update clients set "
 			+ "id_admin=:id_admin, name=:name, "
-			+ "last_name=:last_name, surname=:surname, "
+			+ "lastname=:lastname, surname=:surname, "
 			+ "city=:city, country=:country, "
 			+ "post_index=:post_index, password=:password "
 			+ "where id_client=:id_client";
 	
 	String sqlDeleteById = "delete from clients where id_client=:id_client";
+	
+	String sqlFindByNameAndPass = "select * from clients where name=:name and password=:password";
 	
 	public ClientsDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -44,7 +46,7 @@ public class ClientsDao {
 			temp.setIdClient(rs.getInt("id_client"));
 			temp.setIdAdmin(rs.getInt("id_admin"));
 			temp.setName(rs.getString("name"));
-			temp.setLastName(rs.getString("last_name"));
+			temp.setLastName(rs.getString("lastname"));
 			temp.setSurName(rs.getString("surname"));
 			temp.setCity(rs.getString("city"));
 			temp.setCountry(rs.getString("country"));
@@ -85,5 +87,12 @@ public class ClientsDao {
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_client", Integer.toString(id));
 		namedParameterJdbcTemplate.update(sqlDeleteById, parameters);
+	}
+
+	public Client findByNameAndPass(String login, String password) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("name", login);
+		parameters.put("password", password);
+		return namedParameterJdbcTemplate.queryForObject(sqlFindByNameAndPass, parameters, rowMapper);
 	}
 }
