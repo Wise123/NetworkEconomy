@@ -12,18 +12,20 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import tables.Good;
 import tables.Provider;
 
 
 public class ProvidersDao {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	JdbcTemplate jdbcTemplate;
+	String sqlCreate = "INSERT INTO providers (id_provider, address, title, description) VALUES (:id_provider, :address, :title, :description);";
 	
 	String sqlSelectAll = "select * from providers";
 	String sqlById = "select * from providers where id_provider=:id_provider";
 	
 	String sqlUpdateById = "update providers set "
-			+ "address=:address, title=:title, description=:description"
+			+ "address=:address, title=:title, description=:description "
 			+ "where id_provider=:id_provider";
 	
 	String sqlDeleteById = "delete from providers where id_provider=:id_provider";
@@ -37,7 +39,7 @@ public class ProvidersDao {
 		@Override
 		public Provider mapRow(ResultSet rs, int rownumber) throws SQLException{
 			Provider temp=new Provider();
-			temp.setIdProvider(rs.getString("id_provider"));
+			temp.setIdProvider(rs.getInt("id_provider"));
 			temp.setAddress(rs.getString("address"));
 			temp.setTitle(rs.getString("title"));
 			temp.setDescription(rs.getString("description"));
@@ -63,16 +65,26 @@ public class ProvidersDao {
 	
 	public void update(Provider arg){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_provider", arg.getIdProvider());
+		parameters.put("id_provider", String.valueOf(arg.getIdProvider()));
 		parameters.put("address", arg.getAddress());
 		parameters.put("title", arg.getTitle());
-		parameters.put("desctiption", arg.getDescription());
+		parameters.put("description", arg.getDescription());
 		namedParameterJdbcTemplate.update(sqlUpdateById, parameters);
 	}
 	
-	public Provider deleteByIdOrder(int id){
+	public void deleteById(int id){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_provider", Integer.toString(id));
-		return namedParameterJdbcTemplate.queryForObject(sqlDeleteById, parameters, rowMapper);
+		namedParameterJdbcTemplate.update(sqlDeleteById, parameters);
 	}
+
+	public void create(Provider arg) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_provider", String.valueOf(arg.getIdProvider()));
+		parameters.put("address", arg.getAddress());
+		parameters.put("title", arg.getTitle());
+		parameters.put("description", arg.getDescription());
+		namedParameterJdbcTemplate.update(sqlCreate,parameters);
+	}
+
 }
