@@ -39,7 +39,7 @@ public class ProvidersDao {
 		@Override
 		public Provider mapRow(ResultSet rs, int rownumber) throws SQLException{
 			Provider temp=new Provider();
-			temp.setIdProvider(rs.getInt("id_provider"));
+			temp.setIdProvider(rs.getString("id_provider"));
 			temp.setAddress(rs.getString("address"));
 			temp.setTitle(rs.getString("title"));
 			temp.setDescription(rs.getString("description"));
@@ -80,7 +80,7 @@ public class ProvidersDao {
 
 	public void create(Provider arg) {
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_provider", String.valueOf(arg.getIdProvider()));
+		parameters.put("id_provider", arg.getIdProvider());
 		parameters.put("address", arg.getAddress());
 		parameters.put("title", arg.getTitle());
 		parameters.put("description", arg.getDescription());

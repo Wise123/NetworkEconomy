@@ -33,7 +33,7 @@
 						<li><a href="" ui-sref="home"><i class="glyphicon glyphicon-home"></i></a></li>
 						<li ng-repeat="i in categories"><a href="" ui-sref="catalog({category:i})">{{i}}</a></li>
 						<!-- <li><a href="" ui-sref="catalog({category:'Футболки'})">Футболки</a></li> -->
-						<li><a href="" ui-sref="admin">Администирование</a></li>
+						<li><a href="" ui-sref="admin" ng-if="showAdmin()">Администирование</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class=""><a href="" ui-sref="cart"><i class="glyphicon glyphicon-shopping-cart"></i> {{(getCart()).length}}</a></li>
@@ -66,4 +66,5 @@
 	<script type="text/javascript" src="resources/app/admin/goodsEdit/goodsEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/ordersEdit/ordersEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/regularOrdersEdit/regularOrdersEditController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/providersEdit/providersEditController.js"></script>
 </html>

@@ -2,15 +2,14 @@ package tables;
 
 public class Client {
 	int idClient;
-	int idAdmin;
 	String name;
 	String lastName;
 	String surname;
 	String city;
 	String country;
 	int postIndex;
-	int password;
-	
+	String password;
+	boolean isAdmin;
 	
 	
 	
@@ -21,13 +20,7 @@ public class Client {
 		this.idClient = idClient;
 	}
 	
-	public int getIdAdmin() {
-		return idAdmin;
-	}
 
-	public void setIdAdmin(int idAdmin) {
-		this.idAdmin = idAdmin;
-	}
 
 	public String getName() {
 		return name;
@@ -65,17 +58,36 @@ public class Client {
 	public void setPostIndex(int postIndex) {
 		this.postIndex = postIndex;
 	}
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(int password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Client(int idClient, int idAdmin, String name, String lastName, String surname, String city, String country,
-			int postIndex, int password) {
+	
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	
+	
+	
+	
+	public Client() {
+		// TODO Auto-generated constructor stub
+	}
+	public Client(int idClient, String name, String lastName, String surname, String city, String country,
+			int postIndex, String password, boolean isAdmin) {
 		super();
 		this.idClient = idClient;
-		this.idAdmin = idAdmin;
 		this.name = name;
 		this.lastName = lastName;
 		this.surname = surname;
@@ -83,8 +95,6 @@ public class Client {
 		this.country = country;
 		this.postIndex = postIndex;
 		this.password = password;
-	}
-	public Client() {
-		// TODO Auto-generated constructor stub
+		this.isAdmin = isAdmin;
 	}
 }

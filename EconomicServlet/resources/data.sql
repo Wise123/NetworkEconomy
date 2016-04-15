@@ -1,23 +1,14 @@
-Create table admins (
-id_admin int NOT NULL,
-login varchar(255),
-password int,
-email varchar(255),
-PRIMARY KEY (id_admin),
-);
-
-Create table clients( 
-id_client int NOT NULL, 
-id_admin int,
-name varchar(30), 
-lastname varchar(30), 
-surname varchar(30), 
-city varchar(30), 
-country varchar(30), 
-post_index int, 
-password int, 
-PRIMARY KEY (id_client),
-FOREIGN KEY (id_admin) REFERENCES admins (id_admin)
+CREATE TABLE clients(
+id_client INT NOT NULL,
+name VARCHAR(30),
+lastname VARCHAR(30),
+surname VARCHAR(30),
+city VARCHAR(30),
+country VARCHAR(30),
+post_index INT,
+password VARCHAR(30),
+isadmin boolean,
+PRIMARY KEY (id_client)
 );
 
 Create table cards (
@@ -26,7 +17,7 @@ id_client int,
 number int,
 year_of_end date,
 PRIMARY KEY (id_card),
-FOREIGN KEY (id_client) REFERENCES clients (id_client)
+FOREIGN KEY (id_client) REFERENCES clients (id_client) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table providers(
@@ -57,7 +48,7 @@ date date,
 price decimal(30),
 status boolean,
 PRIMARY KEY (id_order),
-FOREIGN KEY (id_client ) REFERENCES clients (id_client )
+FOREIGN KEY (id_client ) REFERENCES clients (id_client ) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 Create table order_good( 
@@ -66,7 +57,7 @@ id_order int,
 id_good int, 
 PRIMARY KEY (id_og), 
 FOREIGN KEY (id_order) REFERENCES orders (id_order), 
-FOREIGN KEY (id_good) REFERENCES goods (id_good) 
+FOREIGN KEY (id_good) REFERENCES goods (id_good)
 );
 
 Create table regular_orders( 
@@ -77,37 +68,34 @@ name varchar(50),
 price decimal(10),
 count_of_months int,
 PRIMARY KEY (id_regord), 
-FOREIGN KEY (id_client) REFERENCES clients (id_client) 
+FOREIGN KEY (id_client) REFERENCES clients (id_client) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO admins (id_admin, login, password, email) VALUES (1, 'Skorb', 1234589, 'selukoff2010@yandex.ru');
-INSERT INTO admins (id_admin, login, password, email) VALUES (2, 'Qwerty', 908712, 'kissmyass@gmail.com');
+insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (1,'Дмитрий', 'Александрович', 'Селуков', 'Пермь', 'Россия', 614000, '123', false);
+insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (2,'Александр', 'Иванович', 'Бородач', 'Москва', 'Россия', 246091, '908712',false);
+insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (3, 'Михаил', 'Сергеевич', 'Тимченко', 'Брянск', 'Россия', 241018, '785641',false);
+insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (4, 'admin', 'admin', 'admin', 'adminsk', 'adminia', 127001, 'admin',true);
+insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (5, 'user', 'user', 'user', 'usersk', 'useria', 69, 'user',false);
 
-INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password	) VALUES (1,1,'Дмитрий', 'Александрович', 'Селуков', 'Пермь', 'Россия', 614000, 1234589);
-INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password) VALUES (2,2,'Александр', 'Иванович', 'Бородач', 'Москва', 'Россия', 246091, 908712);
-INSERT INTO clients (id_client, id_admin, name, lastname, surname, city, country, post_index, password) VALUES (3, NULL , 'Михаил', 'Сергеевич', 'Тимченко', 'Брянск', 'Россия', 241018, 785641);
+insert into cards (id_card, id_client, number, year_of_end) values (1, 1, 1234567898, '2016-09-01');
+insert into cards (id_card, id_client, number, year_of_end) values (2, 2, 985467185, '2020-10-11');
+insert into cards (id_card, id_client, number, year_of_end) values (3, 3, 674198531, '2018-05-12');
 
-INSERT INTO cards (id_card, id_client, NUMBER, year_of_end) VALUES (1, 1, 1234567898, '2016-09-01');
-INSERT INTO cards (id_card, id_client, NUMBER, year_of_end) VALUES (2, 2, 985467185, '2020-10-11');
-INSERT INTO cards (id_card, id_client, NUMBER, year_of_end) VALUES (3, 3, 674198531, '2018-05-12');
+insert into providers (id_provider, address, title, description) values (1, 'Los-Angeles', 'US Jeans', 'Качественные джинсы ручной работы');
+insert into providers (id_provider, address, title, description) values (2, 'Ancara', 'TurkeyJ', 'Турецкий джинсы, привезенные из столицы');
+insert into providers (id_provider, address, title, description) values (3, 'China', 'GJ', 'Джинсы фабричного производства');
+insert into providers (id_provider, address, title, description) values (4, 'Tailand', 'Law', 'Футболки фабричные');
 
-INSERT INTO providers (id_provider, address, title, description) VALUES (1, 'Los-Angeles', 'US Jeans', 'Качественные джинсы ручной работы');
-INSERT INTO providers (id_provider, address, title, description) VALUES (2, 'Ancara', 'TurkeyJ', 'Турецкий джинсы, привезенные из столицы');
-INSERT INTO providers (id_provider, address, title, description) VALUES (3, 'China', 'GJ', 'Джинсы фабричного производства');
-INSERT INTO providers (id_provider, address, title, description) VALUES (4, 'Tailand', 'Law', 'Футболки фабричные');
+insert into goods (id_good, id_provider, name, price, description, category, count_on_stock, image_path) values (1, 1, 'Синие джинсы', 4000, 'Американские джинсы высокого качества', 'Джинсы', 20, 'resources/img/jeans1.jpg');
+insert into goods (id_good, id_provider, name, price, description, category, count_on_stock, image_path) values (2, 2, 'джинсыыыы', 3000, 'Обычные солдатские джинсы', 'Джинсы', 15, 'resources/img/jeans2.jpg');
+insert into goods (id_good, id_provider, name, price, description, category, count_on_stock, image_path) values (3, 3, 'Чёрные джинсы', 5000, 'Хит сезона', 'Джинсы', 30, 'resources/img/jeans3.jpg');
+insert into goods (id_good, id_provider, name, price, description, category, count_on_stock, image_path) values (4, 4, 'Желтая футболка', 2000, 'Летние легкие футболки', 'Футболки', 27, 'resources/img/t-shirt-1.png');
 
-INSERT INTO goods(ID_GOOD, ID_PROVIDER, NAME, PRICE, DESCRIPTION, CATEGORY, COUNT_ON_STOCK, IMAGE_PATH) VALUES
-(1, 1, 'Синие джинсы', 4000, 'Американские джинсы высокого качества', 'Джинсы', 20, 'resources/img/jeans1.jpg'),
-(2, 2, 'джинсыыыы', 3000, 'Обычные солдатские джинсы', 'Джинсы', 15, 'resources/img/jeans2.jpg'),
-(3, 3, 'Чёрные джинсы', 5000, 'Хит сезона', 'Джинсы', 30, 'resources/img/jeans3.jpg'),
-(4, 4, 'Желтая футболка', 2000, 'Летние легкие футболки', 'Футболки', 27, 'resources/img/t-shirt-1.png'); 
+insert into orders (id_order, id_client, date, price, status) values (1, 1, '2014-10-12', 8000, true);
+insert into orders (id_order, id_client, date, price, status) values (2, 2, '2016-09-03', 20000, true);
 
+insert into regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) values (1, 1, 3, 'Синие джинсы', 4000, 4);
+insert into regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) values (2, 2, 2, 'Желтая футболка', 2000, 2);
 
-INSERT INTO orders (id_order, id_client, DATE, price, STATUS) VALUES (1, 1, '2014-10-12', 8000, TRUE);
-INSERT INTO orders (id_order, id_client, DATE, price, STATUS) VALUES (2, 2, '2016-09-03', 20000, TRUE);
-
-INSERT INTO regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) VALUES (1, 1, 3, 'Синие джинсы', 4000, 4);
-INSERT INTO regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) VALUES (2, 2, 2, 'Желтая футболка', 2000, 2);
-
-INSERT INTO order_good (id_og, id_order, id_good) VALUES (1, 1, 1);
-INSERT INTO order_good (id_og, id_order, id_good) VALUES (2, 2, 2);
+insert into order_good (id_og, id_order, id_good) values (1, 1, 1);
+insert into order_good (id_og, id_order, id_good) values (2, 2, 2);

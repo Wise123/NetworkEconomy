@@ -8,14 +8,20 @@
 			$http({
 				method: 'GET',
 				url: urlPath+'/login',
-				params:{login:$scope.login, password:$scope.password}
+				params:{'name':$scope.name,'password':$scope.password}
 			}).then(function successCallback(response) {
-				$(".nav").show();
-				$state.go('home');
+				
+				if(response.data.name !=undefined){
+					client = response.data;
+					$(".nav").show();
+					$state.go('home');
+				}
+				else{
+					alert("Неверный пароль");
+				}
+				
 			}, function errorCallback(response) {
 				alert("Ошибка при отправке пароля");
-				$(".nav").show();
-				$state.go('home');//убрать когда появится обработчик
 			});
 		}
 		

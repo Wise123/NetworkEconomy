@@ -159,22 +159,25 @@ public class DataController {
 	
 	
 	
-	@RequestMapping(value="/login",produces = "text/plain;charset=UTF-8",method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value="/login",produces = "text/plain",method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public String login(HttpServletResponse response,@RequestParam(required=true) String login,@RequestParam(required=true) String password) throws JsonProcessingException {
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json;charset=UTF-8");
+	public void login(HttpServletResponse response,@RequestParam(required=true) String name,@RequestParam(required=true) String password) throws JsonProcessingException {
+		//response.setCharacterEncoding("UTF-8");
 		String errorJson = "{\"error\": \"incorrect login or pass\"}";	
 		ClientsDao clientsDao =  (ClientsDao) applicationContextProvider.getApplicationContext().getBean("ClientsDao");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			Client client = clientsDao.findByNameAndPass(login,password);
-			String result = new String(mapper.writeValueAsString(client).getBytes(),"UTF-8");
+			Client client = clientsDao.findByNameAndPass(name,password);
+			//String result = new String(mapper.writeValueAsString(client).getBytes(),"UTF-8");
 			System.out.println(client.getLastName());
-			System.out.println(result);
-			return result;
-		}catch (EmptyResultDataAccessException | UnsupportedEncodingException e){
-			return errorJson;
+			//System.out.println(result);
+			response.getWriter().write(mapper.writeValueAsString(client));
+		}catch (EmptyResultDataAccessException | IOException e){
+			try {
+				response.getOutputStream().write(errorJson.getBytes());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 			

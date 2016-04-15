@@ -22,10 +22,14 @@
 					break;
 				};
 				case 1:{
-					$state.go("admin.ordersEdit");
+					$state.go("admin.providersEdit");
 					break;
 				};
 				case 2:{
+					$state.go("admin.ordersEdit");
+					break;
+				};
+				case 3:{
 					$state.go("admin.regularOrdersEdit");
 					break;
 				};

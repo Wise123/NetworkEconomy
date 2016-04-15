@@ -28,6 +28,7 @@ public class ClientsDao {
 			+ "lastname=:lastname, surname=:surname, "
 			+ "city=:city, country=:country, "
 			+ "post_index=:post_index, password=:password "
+			+ "isadmin=:isadmin"
 			+ "where id_client=:id_client";
 	
 	String sqlDeleteById = "delete from clients where id_client=:id_client";
@@ -44,14 +45,14 @@ public class ClientsDao {
 		public Client mapRow(ResultSet rs, int rownumber) throws SQLException{
 			Client temp=new Client();
 			temp.setIdClient(rs.getInt("id_client"));
-			temp.setIdAdmin(rs.getInt("id_admin"));
 			temp.setName(rs.getString("name"));
 			temp.setLastName(rs.getString("lastname"));
-			temp.setSurName(rs.getString("surname"));
+			temp.setSurname(rs.getString("surname"));
 			temp.setCity(rs.getString("city"));
 			temp.setCountry(rs.getString("country"));
 			temp.setPostIndex(rs.getInt("post_index"));
-			temp.setPassword(rs.getInt("password"));
+			temp.setPassword(rs.getString("password"));
+			temp.setAdmin(rs.getBoolean("isadmin"));
 			return temp;
 		}
 	};
@@ -72,14 +73,14 @@ public class ClientsDao {
 	public void update(Client arg){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_cleint", Integer.toString(arg.getIdClient()));
-		parameters.put("id_admin", Integer.toString(arg.getIdAdmin()));
 		parameters.put("name", arg.getName());
 		parameters.put("last_name", arg.getLastName());
-		parameters.put("surname", arg.getSurName());
+		parameters.put("surname", arg.getSurname());
 		parameters.put("city", arg.getCity());
 		parameters.put("country", arg.getCountry());
 		parameters.put("post_index", Integer.toString(arg.getPostIndex()));
-		parameters.put("password", Integer.toString(arg.getPassword()));
+		parameters.put("password", arg.getPassword());
+		parameters.put("isadmin", Boolean.toString(arg.isAdmin()));
 		namedParameterJdbcTemplate.update(sqlUpdateById, parameters);
 	}
 	

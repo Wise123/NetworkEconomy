@@ -24,6 +24,11 @@ app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 		return client;
 	}
 	
+	$scope.showAdmin = function(){
+		return client.admin;
+	}
+	
+	
 	
 	$scope.categories = [];
 	
@@ -74,6 +79,13 @@ app.config(function($stateProvider, $urlRouterProvider){
 		url: "/regularOrdersEdit",
 		templateUrl:"resources/app/admin/regularOrdersEdit/regularOrdersEditView.html",
 		controller:"regularOrdersEditController"
+	}).state("admin.providersEdit", {
+		url: "/providersEdit",
+		templateUrl:"resources/app/admin/providersEdit/providersEditView.html",
+		controller:"providersEditController"
 	})
+	
+	
+	
 	;
 });

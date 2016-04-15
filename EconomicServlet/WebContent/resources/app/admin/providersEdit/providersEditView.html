@@ -1,0 +1,27 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+<h1>Редактирование поставщиков</h1>
+
+<table class="table table-hover" >
+		
+		<tr>
+			<td><b>id</b></td>
+			<td><b>Название</b></td>
+			<td><b>Описание</b></td>
+			<td><b>Адрес</b></td>
+			<td></td>
+		</tr>
+		
+		<tr ng-repeat="i in providers">
+			<td>{{i.idProvider}}</td>
+			<td><input type="text" class="form-control" ng-model="i.title"></input></td>
+			<td><input type="text" class="form-control" ng-model="i.description"></input></td>
+			<td><input type="text" class="form-control" ng-model="i.address"></input></td>
+			<td><i class="glyphicon glyphicon-remove" ng-click="removeProvider(i)"></i></td>
+		</tr>
+		<tr>
+			<td colspan=8>
+				<button class="btn btn-default btn-block" ng-click="addProvider()">Добавить</button>
+			</td>
+		
+		</tr>
+	</table>
