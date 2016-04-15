@@ -37,7 +37,7 @@
 
 
 <jdbc:initialize-database data-source="dataSource">
-    <jdbc:script location="classpath:data.sql" />
+    <jdbc:script location="classpath:data.sql" encoding="UTF-8" />
  </jdbc:initialize-database>
 	
 	
