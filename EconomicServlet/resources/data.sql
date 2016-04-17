@@ -99,3 +99,4 @@ insert into regular_orders (id_regord, id_client, count_of_goods, name, price, c
 
 insert into order_good (id_og, id_order, id_good) values (1, 1, 1);
 insert into order_good (id_og, id_order, id_good) values (2, 2, 2);
+insert into order_good (id_og, id_order, id_good) values (3, 2, 3);

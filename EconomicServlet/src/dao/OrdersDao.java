@@ -77,4 +77,6 @@ public class OrdersDao {
 		parameters.put("id_order", Integer.toString(id));
 		return namedParameterJdbcTemplate.queryForObject(sqlDeleteById, parameters, rowMapper);
 	}
+	
+	
 }

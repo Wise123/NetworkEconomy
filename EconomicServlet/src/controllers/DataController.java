@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.ClientsDao;
 import dao.GoodsDao;
+import dao.OrdersDao;
 import dao.ProvidersDao;
 import tables.Client;
 import tables.Good;
@@ -234,6 +235,25 @@ public class DataController {
 		}
 		//request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		return "{\"status:\":\"OK\"}";
+	}
+	
+	@RequestMapping("/getAllOrdersInfo")
+	public void getAllOrdersInfo(HttpServletRequest request, HttpServletResponse response) {
+		OrdersDao ordersDao =  (OrdersDao) applicationContextProvider.getApplicationContext().getBean("OrdersDao");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			mapper.writeValue(response.getOutputStream(), ordersDao.findAll());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//http://localhost:8080/EconomicServlet/getOrder?orderId=2
+	@RequestMapping("/getOrder")
+	@ResponseBody
+	public List<Good> getOrder(@RequestParam String orderId,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
+		return goodsDao.findGoodsByOrderId(orderId);
 	}
 	
 }

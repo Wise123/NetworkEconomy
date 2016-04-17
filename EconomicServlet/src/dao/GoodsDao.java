@@ -38,6 +38,8 @@ public class GoodsDao {
 	
 	String sqlDeleteById = "delete from goods where id_good=:id_good";
 	
+	String sqlFindGoodsByOrderId = "select * from goods where id_good in (select id_good from order_good where id_order=:id_order)";
+	
 	public GoodsDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		jdbcTemplate = new JdbcTemplate(dataSource);
@@ -63,6 +65,12 @@ public class GoodsDao {
 	
 	public List<Good> findAll(){
 		return jdbcTemplate.query(sqlSelectAll, rowMapper);
+	}
+	
+	public List<Good> findGoodsByOrderId(String orderId){
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_order", orderId);
+		return namedParameterJdbcTemplate.query(sqlFindGoodsByOrderId,parameters, rowMapper);
 	}
 	
 	public List<Good> findAllWithProviderName(){
