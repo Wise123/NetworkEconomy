@@ -64,7 +64,7 @@
 						params:{jsonGood:angular.toJson($scope.goods[i])}
 					}).then(function successCallback(response) {
 					}, function errorCallback(response) {
-						console.log("Ошибка при удалении товаров");
+						console.log("Ошибка при добавлении товаров");
 					});
 				}
 			}
@@ -77,15 +77,15 @@
 					}
 				}
 				if (isRemoved){
-					console.log($scope.goods[i].idGood);
-					/*$http({
+					console.log($scope.originGoods[j].idGood);
+					$http({
 						method: 'POST',
-						url: urlPath+'/createGood',
-						params:{jsonGood:angular.toJson($scope.goods[i])}
+						url: urlPath+'/deleteGood',
+						params:{idGood:$scope.originGoods[j].idGood}
 					}).then(function successCallback(response) {
 					}, function errorCallback(response) {
 						console.log("Ошибка при удалении товаров");
-					});*/
+					});
 				}
 			}
 		}
