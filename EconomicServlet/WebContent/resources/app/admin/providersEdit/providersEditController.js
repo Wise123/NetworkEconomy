@@ -87,6 +87,7 @@
 		}
 		
 		
+		
 		$scope.addProvider = function(){
 			var maxId = 0;
 			for( var i in $scope.providers){

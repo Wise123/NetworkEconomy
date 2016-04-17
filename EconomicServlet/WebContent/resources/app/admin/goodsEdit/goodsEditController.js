@@ -2,6 +2,7 @@
 	
 	
 	
+	
 	angular.module('app').controller('goodsEditController', ['$scope','$sce', '$state', '$http', function($scope, $sce, $state, $http){
 		
 		$scope.goods = [];
