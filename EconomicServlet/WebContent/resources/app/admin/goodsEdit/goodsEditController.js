@@ -36,11 +36,58 @@
 					if ($scope.goods[i].idGood === $scope.originGoods[j].idGood){
 						if (!angular.equals($scope.goods[i],$scope.originGoods[j])){
 							console.log($scope.goods[i]);
+							$http({
+								method: 'POST',
+								url: urlPath+'/updateGood',
+								params:{jsonGood:angular.toJson($scope.goods[i])}
+							}).then(function successCallback(response) {
+							}, function errorCallback(response) {
+								console.log("Ошибка при обновлении товаров");
+							});
 						}
 					}
 				}
 			}
 			
+			for (i in $scope.goods){
+				var isCreated = true;
+				for (j in $scope.originGoods){
+					if($scope.goods[i].idGood==$scope.originGoods[j].idGood){
+						isCreated=false;
+					}
+				}
+				if (isCreated){
+					console.log($scope.goods[i].idGood);
+					$http({
+						method: 'POST',
+						url: urlPath+'/createGood',
+						params:{jsonGood:angular.toJson($scope.goods[i])}
+					}).then(function successCallback(response) {
+					}, function errorCallback(response) {
+						console.log("Ошибка при удалении товаров");
+					});
+				}
+			}
+			
+			for (j in $scope.originGoods){
+				var isRemoved = true;
+				for (i in $scope.goods){
+					if($scope.goods[i].idGood==$scope.originGoods[j].idGood){
+						isRemoved=false;
+					}
+				}
+				if (isRemoved){
+					console.log($scope.goods[i].idGood);
+					/*$http({
+						method: 'POST',
+						url: urlPath+'/createGood',
+						params:{jsonGood:angular.toJson($scope.goods[i])}
+					}).then(function successCallback(response) {
+					}, function errorCallback(response) {
+						console.log("Ошибка при удалении товаров");
+					});*/
+				}
+			}
 		}
 		
 		
