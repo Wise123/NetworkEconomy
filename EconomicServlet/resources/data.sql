@@ -7,67 +7,67 @@ city VARCHAR(30),
 country VARCHAR(30),
 post_index INT,
 password VARCHAR(30),
-isadmin boolean,
+isadmin BOOLEAN,
 PRIMARY KEY (id_client)
 );
-
-Create table cards (
-id_card int NOT NULL,
-id_client int,
-number int,
-year_of_end date,
+ 
+CREATE TABLE cards (
+id_card INT NOT NULL,
+id_client INT,
+NUMBER INT,
+year_of_end DATE,
 PRIMARY KEY (id_card),
 FOREIGN KEY (id_client) REFERENCES clients (id_client) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-Create table providers(
-id_provider int NOT NULL,
-address varchar(70),
-title varchar(30),
-description varchar(70),
+ 
+CREATE TABLE providers(
+id_provider INT NOT NULL,
+address VARCHAR(70),
+title VARCHAR(30),
+description VARCHAR(70),
 PRIMARY KEY (id_provider)
 );
-
-Create table goods (
-id_good int NOT NULL,
-id_provider int,
-name varchar(30),
-price decimal(10),
-description varchar(70),
-category varchar(40),
-count_on_stock int,
-image_path varchar(500),
+ 
+CREATE TABLE goods (
+id_good INT NOT NULL,
+id_provider INT,
+name VARCHAR(30),
+price DECIMAL(10),
+description VARCHAR(70),
+category VARCHAR(40),
+count_on_stock INT,
+image_path VARCHAR(500),
 PRIMARY KEY (id_good),
-FOREIGN KEY (id_provider) REFERENCES providers (id_provider)
+FOREIGN KEY (id_provider) REFERENCES providers (id_provider) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-Create table orders(
-id_order int NOT NULL,
-id_client int,
-date date,
-price decimal(30),
-status boolean,
+ 
+CREATE TABLE orders(
+id_order INT NOT NULL,
+id_client INT,
+DATE DATE,
+price DECIMAL(30),
+STATUS BOOLEAN,
 PRIMARY KEY (id_order),
 FOREIGN KEY (id_client ) REFERENCES clients (id_client ) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-Create table order_good( 
-id_og int NOT NULL, 
-id_order int, 
-id_good int, 
-PRIMARY KEY (id_og), 
-FOREIGN KEY (id_order) REFERENCES orders (id_order), 
-FOREIGN KEY (id_good) REFERENCES goods (id_good)
+ 
+CREATE TABLE order_good(
+id_og INT NOT NULL,
+id_order INT,
+id_good INT,
+PRIMARY KEY (id_og),
+FOREIGN KEY (id_order) REFERENCES orders (id_order) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_good) REFERENCES goods (id_good) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-Create table regular_orders( 
-id_regord int NOT NULL, 
-id_client int, 
-count_of_goods int,
-name varchar(50),
-price decimal(10),
-count_of_months int,
-PRIMARY KEY (id_regord), 
+ 
+CREATE TABLE regular_orders(
+id_regord INT NOT NULL,
+id_client INT,
+count_of_goods INT,
+name VARCHAR(50),
+price DECIMAL(10),
+count_of_months INT,
+PRIMARY KEY (id_regord),
 FOREIGN KEY (id_client) REFERENCES clients (id_client) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
