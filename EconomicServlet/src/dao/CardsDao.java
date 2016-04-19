@@ -21,9 +21,11 @@ public class CardsDao {
 	String sqlSelectAll = "select * from cards";
 	String sqlById = "select * from cards where id_card=:id_card";
 	
+	String sqlByClientId = "select * from cards where id_client=:id_client";
+	
 	String sqlUpdateById = "update cards set " +
 			"id_client=:id_client, number=:number, "
-			+ "year_of_end=:year_of_end, "
+			+ "year_of_end=:year_of_end "
 			+ "where id_card=:id_card";
 	
 	String sqlDeleteById = "delete from cards where id_card=:id_card";
@@ -55,6 +57,12 @@ public class CardsDao {
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_card", Integer.toString(id));
 		return namedParameterJdbcTemplate.queryForObject(sqlById, parameters, rowMapper);
+	}
+	
+	public Card findByClientId(int id_client){
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_client", Integer.toString(id_client));
+		return namedParameterJdbcTemplate.queryForObject(sqlByClientId, parameters, rowMapper);
 	}
 	
 	
