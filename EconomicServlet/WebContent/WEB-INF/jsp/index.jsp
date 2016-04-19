@@ -65,6 +65,7 @@
 	<script type="text/javascript" src="resources/app/admin/adminController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/goodsEdit/goodsEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/ordersEdit/ordersEditController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/ordersEdit/orderEdit/orderEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/regularOrdersEdit/regularOrdersEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/providersEdit/providersEditController.js"></script>
 </html>

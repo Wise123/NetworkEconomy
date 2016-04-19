@@ -2,8 +2,24 @@
 	
 	
 	
-	angular.module('app').controller('ordersEditController', ['$scope','$sce', '$state', function($scope, $sce, $state){
+	angular.module('app').controller('ordersEditController', ['$scope','$sce', '$state',"$http", '$stateParams', function($scope, $sce, $state, $http, $stateParams){
+		
+		$scope.orders = [];
 
 		
-	}]);	
+		
+		$http({
+			method: 'GET',
+			url: urlPath+'/getAllOrdersInfo',
+		}).then(function successCallback(response) {
+			$scope.orders = angular.copy(response.data);
+		}, function errorCallback(response) {
+			console.log("Ошибка при получении заказов");
+		});
+		
+		
+		
+		
+		
+	}]);
 }())

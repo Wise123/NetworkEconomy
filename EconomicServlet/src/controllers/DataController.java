@@ -1,7 +1,6 @@
 package controllers;
  
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletException;

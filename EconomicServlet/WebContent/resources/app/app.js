@@ -83,6 +83,10 @@ app.config(function($stateProvider, $urlRouterProvider){
 		url: "/providersEdit",
 		templateUrl:"resources/app/admin/providersEdit/providersEditView.html",
 		controller:"providersEditController"
+	}).state("orderEdit", {
+		url: "/orderEdit/:id",
+		templateUrl:"resources/app/admin/ordersEdit/orderEdit/orderEditView.html",
+		controller:"orderEditController"
 	})
 	
 	
