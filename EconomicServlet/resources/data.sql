@@ -15,7 +15,7 @@ CREATE TABLE cards (
 id_card INT NOT NULL,
 id_client INT,
 NUMBER INT,
-year_of_end DATE,
+year_of_end INT,
 PRIMARY KEY (id_card),
 FOREIGN KEY (id_client) REFERENCES clients (id_client) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -78,9 +78,9 @@ insert into clients (id_client, name, lastname, surname, city, country, post_ind
 insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (4, 'admin', 'admin', 'admin', 'adminsk', 'adminia', 127001, 'admin',true);
 insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (5, 'user', 'user', 'user', 'usersk', 'useria', 69, 'user',false);
 
-insert into cards (id_card, id_client, number, year_of_end) values (1, 1, 1234567898, '2016-09-01');
-insert into cards (id_card, id_client, number, year_of_end) values (2, 2, 985467185, '2020-10-11');
-insert into cards (id_card, id_client, number, year_of_end) values (3, 3, 674198531, '2018-05-12');
+insert into cards (id_card, id_client, number, year_of_end) values (1, 1, 1234567898, 2016);
+insert into cards (id_card, id_client, number, year_of_end) values (2, 2, 985467185, 2020);
+insert into cards (id_card, id_client, number, year_of_end) values (3, 3, 674198531, 2018);
 
 insert into providers (id_provider, address, title, description) values (1, 'Los-Angeles', 'US Jeans', 'Качественные джинсы ручной работы');
 insert into providers (id_provider, address, title, description) values (2, 'Ancara', 'TurkeyJ', 'Турецкий джинсы, привезенные из столицы');

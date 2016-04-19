@@ -4,6 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans     
 		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,7 +13,10 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/jdbc
-		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+		>
 	
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -79,8 +83,17 @@
 		<constructor-arg ref="applicationContextProvder"/>
 	</bean>
 	
+	<bean id="regOrderSheduler" class="util.RegularOrderSheduler" scope="singleton">
+		<constructor-arg ref="applicationContextProvder"/>
+	</bean>
 	
 	
+	<task:scheduled-tasks scheduler="myScheduler">
+		<!-- <task:scheduled ref="regOrderSheduler" method="process" fixed-delay="2628000000" /> one time per month--> 
+		<task:scheduled ref="regOrderSheduler" method="process" fixed-delay="2000" /> <!--  one time per two seconds -->
+	</task:scheduled-tasks>
+
+	<task:scheduler id="myScheduler" pool-size="1" />
 	
 	
 </beans>
