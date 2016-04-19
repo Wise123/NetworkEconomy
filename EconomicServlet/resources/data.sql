@@ -44,6 +44,7 @@ FOREIGN KEY (id_provider) REFERENCES providers (id_provider) ON DELETE CASCADE O
 CREATE TABLE orders(
 id_order INT NOT NULL,
 id_client INT,
+client VARCHAR(50),
 DATE DATE,
 price DECIMAL(30),
 STATUS BOOLEAN,

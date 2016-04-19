@@ -5,13 +5,14 @@ import java.sql.Date;
 public class Order {
 	int idOrder;
 	int idClient;
+	String client;
 	Date date;
 	int price;
 	boolean status;
-	public Order(int idOrder, int idClient, Date date, int price, boolean status) {
+	public Order(int idOrder, String idClient, Date date, int price, boolean status) {
 		super();
 		this.idOrder = idOrder;
-		this.idClient = idClient;
+		this.client = idClient;
 		this.date = date;
 		this.price = price;
 		this.status = status;
@@ -23,12 +24,6 @@ public class Order {
 	}
 	public void setIdOrder(int idOrder) {
 		this.idOrder = idOrder;
-	}
-	public int getIdClient() {
-		return idClient;
-	}
-	public void setIdClient(int idClient) {
-		this.idClient = idClient;
 	}
 	public Date getDate() {
 		return date;
@@ -48,5 +43,18 @@ public class Order {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	public String getClient() {
+		return client;
+	}
+	public void setClient(String client) {
+		this.client = client;
+	}
+	public int getIdClient() {
+		return idClient;
+	}
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
+	}
+	
 	
 }

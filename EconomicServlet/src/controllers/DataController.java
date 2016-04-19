@@ -23,6 +23,7 @@ import dao.OrdersDao;
 import dao.ProvidersDao;
 import tables.Client;
 import tables.Good;
+import tables.Order;
 import tables.Provider;
 import util.ApplicationContextProvider;
 
@@ -236,15 +237,17 @@ public class DataController {
 		return "{\"status:\":\"OK\"}";
 	}
 	
-	@RequestMapping("/getAllOrdersInfo")
-	public void getAllOrdersInfo(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/getAllOrdersInfo",method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public List<Order> getAllOrdersInfo(HttpServletRequest request, HttpServletResponse response) {
 		OrdersDao ordersDao =  (OrdersDao) applicationContextProvider.getApplicationContext().getBean("OrdersDao");
-		ObjectMapper mapper = new ObjectMapper();
-		try {
+		//ObjectMapper mapper = new ObjectMapper();
+		/*try {
 			mapper.writeValue(response.getOutputStream(), ordersDao.findAll());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
+		return ordersDao.findAll();
 	}
 	
 	//http://localhost:8080/EconomicServlet/getOrder?orderId=2

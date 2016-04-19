@@ -19,7 +19,7 @@ public class OrdersDao {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	JdbcTemplate jdbcTemplate;
 	
-	String sqlSelectAll = "select * from orders";
+	String sqlSelectAll = "select name, id_order, id_client, date, price, status from orders join clients on orders.id_client = clients.id_client";
 	String sqlByIdClient = "select * from orders where id_client=:id_client";
 	String sqlByIdOrder = "select * from orders where id_order=:id_order";
 	
@@ -40,6 +40,7 @@ public class OrdersDao {
 			Order temp=new Order();
 			temp.setIdOrder(rs.getInt("id_order"));
 			temp.setIdClient(rs.getInt("id_client"));
+			temp.setClient(rs.getString("name"));
 			temp.setDate(rs.getDate("date"));
 			temp.setPrice(rs.getInt("price"));
 			temp.setStatus(rs.getBoolean("status"));
@@ -65,7 +66,7 @@ public class OrdersDao {
 	
 	public void update(Order arg){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_client", Integer.toString(arg.getIdClient()));
+		parameters.put("id_client", String.valueOf(arg.getIdClient()));
 		parameters.put("date", new SimpleDateFormat("dd.mm.yyyy").format(arg.getDate()));
 		parameters.put("price", Integer.toString(arg.getPrice()));
 		parameters.put("state", Boolean.toString(arg.isStatus()));
