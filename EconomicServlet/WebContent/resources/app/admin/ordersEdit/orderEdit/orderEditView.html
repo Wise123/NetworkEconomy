@@ -1,25 +1,25 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-<h1>Доступные заказы заказов</h1>
+<h1>Подробная информация о заказе</h1>
 
 <table class="table table-hover" >
 		
 		<tr>
-			<td><b>id</b></td>
-			<td><b>Клиент</b></td>
-			<td><b>Дата</b></td>
-			<td><b>Стоимость</b></td>
-			<td><b>Статус</b></td>
+			<td>id</td>
+			<td><b>Поставщик</b></td>
+			<td><b>Наименование</b></td>
+			<td><b>Цена</b></td>
+			<td><b>Описание</b></td>
+			<td><b>Категория</b></td>
+			<td><b>Остаток</b></td>
 		</tr>
 		
-		<tr ng-repeat="i in orders">
-			<td><button class="btn btn-link" ui-sref="orderEdit({id:i.idOrder})">{{i.idOrder}}</button></td>
-			<td>{{i.idClient}}</td>
-			<td>{{i.date}}</td>
+		<tr ng-repeat="i in goods">
+			<td>{{i.idGood}}</td>
+			<td>{{i.idProvider}}</td>
+			<td>{{i.name}}</td>
 			<td>{{i.price}}</td>
-			<td>{{i.status ? 'Выполнен' : 'Не выполнен'}}</td>
+			<td>{{i.description}}</td>
+			<td>{{i.category}}</td>
+			<td>{{i.countOnStock}}</td>
 		</tr>
 	</table>
-
-	
-	
-	

@@ -5,7 +5,7 @@
 	angular.module('app').controller('orderEditController', ['$scope','$sce', '$state',"$http", "$stateParams", function($scope, $sce, $state, $http, $stateParams){
 		
 		$scope.orders = [];
-		$scope.order = {};
+		$scope.goods = [];
 		
 		$http({
 			method: 'GET',
@@ -25,7 +25,8 @@
 				orderId:$stateParams.id
 			}
 		}).then(function successCallback(response) {
-			$scope.order = angular.copy(response.data);
+			$scope.goods = angular.copy(response.data);
+			console.log($scope.goods)
 		}, function errorCallback(response) {
 			console.log("Ошибка при получении заказа");
 		});
