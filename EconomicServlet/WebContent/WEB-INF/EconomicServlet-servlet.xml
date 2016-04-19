@@ -73,6 +73,11 @@
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
+	<bean id="OrdersGoodDao" class="dao.OrdersGoodDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
+	
 	<bean id="applicationContextProvder" class="util.ApplicationContextProvider"/>
 	
 	<bean id="PagesController" class="controllers.PagesController">
@@ -89,8 +94,8 @@
 	
 	
 	<task:scheduled-tasks scheduler="myScheduler">
-		<!-- <task:scheduled ref="regOrderSheduler" method="process" fixed-delay="2628000000" /> one time per month--> 
-		<task:scheduled ref="regOrderSheduler" method="process" fixed-delay="2000" /> <!--  one time per two seconds -->
+		<task:scheduled ref="regOrderSheduler" method="process" fixed-delay="2628000000" /><!--  one time per month--> 
+		<!-- <task:scheduled ref="regOrderSheduler" method="process" fixed-delay="2000" />  one time per two seconds -->
 	</task:scheduled-tasks>
 
 	<task:scheduler id="myScheduler" pool-size="1" />

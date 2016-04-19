@@ -53,10 +53,8 @@ FOREIGN KEY (id_client ) REFERENCES clients (id_client ) ON DELETE CASCADE ON UP
 );
  
 CREATE TABLE order_good(
-id_og INT NOT NULL,
 id_order INT,
 id_good INT,
-PRIMARY KEY (id_og),
 FOREIGN KEY (id_order) REFERENCES orders (id_order) ON DELETE CASCADE ON UPDATE CASCADE,
 FOREIGN KEY (id_good) REFERENCES goods (id_good) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -98,6 +96,6 @@ insert into orders (id_order, id_client, date, price, status) values (2, 2, '201
 insert into regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) values (1, 1, 3, 'Синие джинсы', 4000, 4);
 insert into regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) values (2, 2, 2, 'Желтая футболка', 2000, 2);
 
-insert into order_good (id_og, id_order, id_good) values (1, 1, 1);
-insert into order_good (id_og, id_order, id_good) values (2, 2, 2);
-insert into order_good (id_og, id_order, id_good) values (3, 2, 3);
+insert into order_good (id_order, id_good) values (1, 1);
+insert into order_good (id_order, id_good) values (2, 2);
+insert into order_good (id_order, id_good) values (2, 3);

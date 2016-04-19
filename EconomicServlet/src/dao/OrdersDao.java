@@ -23,6 +23,8 @@ public class OrdersDao {
 	String sqlByIdClient = "select * from orders where id_client=:id_client";
 	String sqlByIdOrder = "select * from orders where id_order=:id_order";
 	
+	String sqlCreate = "insert into orders (id_order, id_client, date, price, status) values (:id_order, :id_client, :date, :price, :status)";
+	
 	String sqlUpdateById = "update orders set "
 			+ "id_client=:id_client, date=:date, price=:price, status=:status "
 			+ "where id_order=:id_order";
@@ -77,6 +79,16 @@ public class OrdersDao {
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_order", Integer.toString(id));
 		return namedParameterJdbcTemplate.queryForObject(sqlDeleteById, parameters, rowMapper);
+	}
+
+	public void create(Order arg) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_order", String.valueOf(arg.getIdOrder()));
+		parameters.put("id_client", String.valueOf(arg.getIdClient()));
+		parameters.put("date", arg.getDate().toString());
+		parameters.put("price", String.valueOf(arg.getPrice()));
+		parameters.put("status", String.valueOf(arg.isStatus()));
+		namedParameterJdbcTemplate.update(sqlCreate,parameters);
 	}
 	
 	

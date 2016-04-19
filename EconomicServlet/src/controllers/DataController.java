@@ -1,7 +1,9 @@
 package controllers;
  
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,18 +16,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tables.Client;
+import tables.Good;
+import tables.Order;
+import tables.OrderGood;
+import tables.Provider;
+import util.ApplicationContextProvider;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import dao.ClientsDao;
 import dao.GoodsDao;
 import dao.OrdersDao;
+import dao.OrdersGoodDao;
 import dao.ProvidersDao;
-import tables.Client;
-import tables.Good;
-import tables.Order;
-import tables.Provider;
-import util.ApplicationContextProvider;
 
  
 
@@ -257,5 +263,36 @@ public class DataController {
 		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
 		return goodsDao.findGoodsByOrderId(orderId);
 	}
+	
+	//http://localhost:35212/EconomicServlet/createOrder?idOrder=3&idClient=1&goodsJson=[{"idGood":1,"idProvider":"1","name":"Синие джинсы","price":4000,"description":"Американские джинсы высокого качества","category":"Джинсы","countOnStock":20,"imagePath":"resources/img/jeans1.jpg"},{"idGood":2,"idProvider":"2","name":"джинсыыыы","price":3000,"description":"Обычные солдатские джинсы","category":"Джинсы","countOnStock":15,"imagePath":"resources/img/jeans2.jpg"},{"idGood":3,"idProvider":"3","name":"Чёрные джинсы","price":5000,"description":"Хит сезона","category":"Джинсы","countOnStock":30,"imagePath":"resources/img/jeans3.jpg"},{"idGood":4,"idProvider":"4","name":"Желтая футболка","price":2000,"description":"Летние легкие футболки","category":"Футболки","countOnStock":27,"imagePath":"resources/img/t-shirt-1.png"}]
+	@RequestMapping(value = "/createOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Good> createOrder(@RequestParam String goodsJson, @RequestParam Integer idOrder, @RequestParam Integer idClient, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		OrdersDao ordersDao =  (OrdersDao) applicationContextProvider.getApplicationContext().getBean("OrdersDao");
+		OrdersGoodDao ordersGoodDao =  (OrdersGoodDao) applicationContextProvider.getApplicationContext().getBean("OrdersGoodDao");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			List<Good> goods = mapper.readValue(goodsJson,TypeFactory.defaultInstance().constructCollectionType(List.class,  
+					   Good.class));
+			//System.out.println(goods);
+			
+			Order order = new Order(idOrder, idClient, new java.sql.Date(new Date().getTime()), goods.stream().mapToInt(Good::getPrice).sum(), true);
+			ordersDao.create(order);
+			
+			goods.forEach((good) -> {
+				OrderGood og = new OrderGood(order.getIdOrder(), good.getIdGood());
+				ordersGoodDao.create(og);
+			});
+			
+			return goods;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+				
+		
+	}
+	
+	
 	
 }

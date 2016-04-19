@@ -9,10 +9,10 @@ public class Order {
 	Date date;
 	int price;
 	boolean status;
-	public Order(int idOrder, String idClient, Date date, int price, boolean status) {
+	public Order(int idOrder, int idClient, Date date, int price, boolean status) {
 		super();
 		this.idOrder = idOrder;
-		this.client = idClient;
+		this.idClient = idClient;
 		this.date = date;
 		this.price = price;
 		this.status = status;
@@ -43,6 +43,8 @@ public class Order {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	
+	
 	public String getClient() {
 		return client;
 	}
