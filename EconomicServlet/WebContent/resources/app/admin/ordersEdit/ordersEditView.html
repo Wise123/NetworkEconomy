@@ -9,6 +9,7 @@
 			<td><b>Дата</b></td>
 			<td><b>Стоимость</b></td>
 			<td><b>Статус</b></td>
+			<td></td>
 		</tr>
 		
 		<tr ng-repeat="i in orders">
@@ -17,6 +18,7 @@
 			<td>{{i.date}}</td>
 			<td>{{i.price}}</td>
 			<td>{{i.status ? 'Выполнен' : 'Не выполнен'}}</td>
+			<td><i class="glyphicon glyphicon-remove" ng-click="removeOrder(i)"></i></td>
 		</tr>
 	</table>
 

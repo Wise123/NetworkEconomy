@@ -1,2 +1,23 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
 <h1>Редактирование подписок</h1>
+
+<table class="table table-hover" >
+		
+		<tr>
+			<td><b>id</b></td>
+			<td><b>Клиент</b></td>
+			<td><b>Дата</b></td>
+			<td><b>Стоимость</b></td>
+			<td><b>Статус</b></td>
+			<td></td>
+		</tr>
+		
+		<tr ng-repeat="i in regularOrders">
+			<td><button class="btn btn-link" ui-sref="regularOrderEdit({id:i.idRegiularOrder})">{{i.idRegularOrder}}</button></td>
+			<td>{{i.client}}</td>
+			<td>{{i.date}}</td>
+			<td>{{i.price}}</td>
+			<td>{{i.status ? 'Выполнен' : 'Не выполнен'}}</td>
+			<td><i class="glyphicon glyphicon-remove" ng-click="removeRegularOrder(i)"></i></td>
+		</tr>
+	</table>
