@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,8 @@ import tables.Good;
 import tables.Order;
 import tables.OrderGood;
 import tables.Provider;
+import tables.RegOrderGood;
+import tables.RegularOrder;
 import util.ApplicationContextProvider;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,6 +34,8 @@ import dao.GoodsDao;
 import dao.OrdersDao;
 import dao.OrdersGoodDao;
 import dao.ProvidersDao;
+import dao.RegOrdersGoodDao;
+import dao.RegularOrdersDao;
 
  
 
@@ -291,10 +294,83 @@ public class DataController {
 			e.printStackTrace();
 		}
 		return null;
-				
 		
 	}
 	
+	@RequestMapping("/deleteOrder")
+	@ResponseBody
+	public String deleteOrder(@RequestParam Integer idOrder,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
+			OrdersDao ordersDao =  (OrdersDao) applicationContextProvider.getApplicationContext().getBean("OrdersDao");
+			ordersDao.deleteByIdOrder(idOrder);
+		}catch (Exception e){
+			e.printStackTrace();
+			return "{\"error:\":\""+e.getMessage()+"\"}";
+		}
+		//request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+		return "{\"status:\":\"OK\"}";
+	}
 	
+	@RequestMapping("/deleteRegularOrder")
+	@ResponseBody
+	public String deleteRegularOrder(@RequestParam Integer idRegOrder,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
+			RegularOrdersDao regularOrdersDao =  (RegularOrdersDao) applicationContextProvider.getApplicationContext().getBean("RegularOrdersDao");
+			regularOrdersDao.deleteByIdOrder(idRegOrder);
+		}catch (Exception e){
+			e.printStackTrace();
+			return "{\"error:\":\""+e.getMessage()+"\"}";
+		}
+		//request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+		return "{\"status:\":\"OK\"}";
+	}
 	
+	@RequestMapping(value = "/getAllRegularOrdersInfo",method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public List<RegularOrder> getAllRegularOrdersInfo(HttpServletRequest request, HttpServletResponse response) {
+		RegularOrdersDao regularOrdersDao =  (RegularOrdersDao) applicationContextProvider.getApplicationContext().getBean("RegularOrdersDao");
+		//ObjectMapper mapper = new ObjectMapper();
+		/*try {
+			mapper.writeValue(response.getOutputStream(), ordersDao.findAll());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
+		return regularOrdersDao.findAll();
+	}
+	
+	//http://localhost:35212/EconomicServlet/getRegularOrder?idRegOrder=2
+	@RequestMapping("/getRegularOrder")
+	@ResponseBody
+	public List<Good> getRegularOrder(@RequestParam String idRegOrder,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
+		return goodsDao.findGoodsByRegOrderId(idRegOrder);
+	}
+	//http://localhost:35212/EconomicServlet/createRegularOrder?countOfMonth=3&idRegOrder=3&idClient=1&goodsJson=[{"idGood":1,"idProvider":"1","name":"Синие джинсы","price":4000,"description":"Американские джинсы высокого качества","category":"Джинсы","countOnStock":20,"imagePath":"resources/img/jeans1.jpg"},{"idGood":2,"idProvider":"2","name":"джинсыыыы","price":3000,"description":"Обычные солдатские джинсы","category":"Джинсы","countOnStock":15,"imagePath":"resources/img/jeans2.jpg"},{"idGood":3,"idProvider":"3","name":"Чёрные джинсы","price":5000,"description":"Хит сезона","category":"Джинсы","countOnStock":30,"imagePath":"resources/img/jeans3.jpg"},{"idGood":4,"idProvider":"4","name":"Желтая футболка","price":2000,"description":"Летние легкие футболки","category":"Футболки","countOnStock":27,"imagePath":"resources/img/t-shirt-1.png"}]
+	@RequestMapping(value = "/createRegularOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Good> createRegularOrder(@RequestParam String goodsJson, @RequestParam Integer idRegOrder, @RequestParam Integer idClient,@RequestParam Integer countOfMonth, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RegularOrdersDao regularOrdersDao =  (RegularOrdersDao) applicationContextProvider.getApplicationContext().getBean("RegularOrdersDao");
+		RegOrdersGoodDao regOrdersGoodDao =  (RegOrdersGoodDao) applicationContextProvider.getApplicationContext().getBean("RegOrdersGoodDao");
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		try {
+			List<Good> goods = mapper.readValue(goodsJson,TypeFactory.defaultInstance().constructCollectionType(List.class,  
+					   Good.class));
+			//System.out.println(goods);
+			
+			RegularOrder order = new RegularOrder(idRegOrder, idClient,goods.size(), goods.stream().mapToInt(Good::getPrice).sum(), countOfMonth);
+			regularOrdersDao.create(order);
+			
+			goods.forEach((good) -> {
+				RegOrderGood og = new RegOrderGood(order.getIdRegord(), good.getIdGood());
+				regOrdersGoodDao.create(og);
+			});
+			
+			return goods;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

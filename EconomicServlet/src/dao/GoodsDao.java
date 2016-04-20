@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import tables.Good;
 
 public class GoodsDao {
@@ -39,6 +40,8 @@ public class GoodsDao {
 	String sqlDeleteById = "delete from goods where id_good=:id_good";
 	
 	String sqlFindGoodsByOrderId = "select * from goods where id_good in (select id_good from order_good where id_order=:id_order)";
+	
+	String sqlFindGoodsByRegOrderId = "select * from goods where id_good in (select id_good from reg_order_good where id_reg_order=:id_reg_order)";
 	
 	public GoodsDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -137,6 +140,12 @@ public class GoodsDao {
 		parameters.put("image_path", arg.getImagePath());
 		parameters.put("id_good", Integer.toString(arg.getIdGood()));
 		namedParameterJdbcTemplate.update(sqlCreate,parameters);
+	}
+
+	public List<Good> findGoodsByRegOrderId(String idRegOrder) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_reg_order", idRegOrder);
+		return namedParameterJdbcTemplate.query(sqlFindGoodsByRegOrderId,parameters, rowMapper);
 	}
 	
 }

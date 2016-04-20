@@ -29,7 +29,7 @@ public class OrdersDao {
 			+ "id_client=:id_client, date=:date, price=:price, status=:status "
 			+ "where id_order=:id_order";
 	
-	String sqlDeleteById = "delete from orders where id_order=:id_order";
+	String sqlDeleteById = "delete from orders where id_order= ";
 	
 	public OrdersDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -75,10 +75,11 @@ public class OrdersDao {
 		namedParameterJdbcTemplate.update(sqlUpdateById, parameters);
 	}
 	
-	public Order deleteByIdOrder(int id){
-		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_order", Integer.toString(id));
-		return namedParameterJdbcTemplate.queryForObject(sqlDeleteById, parameters, rowMapper);
+	public void deleteByIdOrder(int id){
+		//Map <String, String> parameters = new LinkedHashMap<String, String>();
+		//parameters.put("id_order", Integer.toString(id));
+		//jdbcTemplate.update(sqlDeleteById, parameters);
+		jdbcTemplate.update(sqlDeleteById + id);
 	}
 
 	public void create(Order arg) {

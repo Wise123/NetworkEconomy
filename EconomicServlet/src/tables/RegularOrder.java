@@ -3,21 +3,19 @@ package tables;
 public class RegularOrder {
 	int idRegord;
 	int idClient;
+	String client;
 	int countOfGoods;
-	String name;
 	int price;
 	int countOfMonth;
-	public RegularOrder(int idRegord, int idClient, int countOfGoods, String name, int price, int countOfMonth) {
+	public RegularOrder(int idRegord, int idClient, int countOfGoods, int price, int countOfMonth) {
 		super();
 		this.idRegord = idRegord;
 		this.idClient = idClient;
 		this.countOfGoods = countOfGoods;
-		this.name = name;
 		this.price = price;
 		this.countOfMonth = countOfMonth;
 	}
 	public RegularOrder() {
-		// TODO Auto-generated constructor stub
 	}
 	public int getIdRegord() {
 		return idRegord;
@@ -37,12 +35,6 @@ public class RegularOrder {
 	public void setCountOfGoods(int countOfGoods) {
 		this.countOfGoods = countOfGoods;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public int getPrice() {
 		return price;
 	}
@@ -55,7 +47,11 @@ public class RegularOrder {
 	public void setCountOfMonth(int countOfMonth) {
 		this.countOfMonth = countOfMonth;
 	}
-	
-	
+	public String getClient() {
+		return client;
+	}
+	public void setClient(String client) {
+		this.client = client;
+	}
 	
 }

@@ -62,12 +62,19 @@ FOREIGN KEY (id_good) REFERENCES goods (id_good) ON DELETE CASCADE ON UPDATE CAS
 CREATE TABLE regular_orders(
 id_regord INT NOT NULL,
 id_client INT,
+client VARCHAR(50),
 count_of_goods INT,
-name VARCHAR(50),
 price DECIMAL(10),
 count_of_months INT,
 PRIMARY KEY (id_regord),
 FOREIGN KEY (id_client) REFERENCES clients (id_client) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE reg_order_good(
+id_reg_order INT,
+id_good INT,
+FOREIGN KEY (id_reg_order) REFERENCES regular_orders (id_regord) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (id_good) REFERENCES goods (id_good) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (1,'Дмитрий', 'Александрович', 'Селуков', 'Пермь', 'Россия', 614000, '123', false);
@@ -93,8 +100,13 @@ insert into goods (id_good, id_provider, name, price, description, category, cou
 insert into orders (id_order, id_client, date, price, status) values (1, 1, '2014-10-12', 8000, true);
 insert into orders (id_order, id_client, date, price, status) values (2, 2, '2016-09-03', 20000, true);
 
-insert into regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) values (1, 1, 3, 'Синие джинсы', 4000, 4);
-insert into regular_orders (id_regord, id_client, count_of_goods, name, price, count_of_months) values (2, 2, 2, 'Желтая футболка', 2000, 2);
+insert into regular_orders (id_regord, id_client, count_of_goods, price, count_of_months) values (1, 1, 2, 6000, 4);
+insert into regular_orders (id_regord, id_client, count_of_goods, price, count_of_months) values (2, 2, 2, 8000, 2);
+
+insert into reg_order_good (id_reg_order, id_good) values (1, 1);
+insert into reg_order_good (id_reg_order, id_good) values (1, 4);
+insert into reg_order_good (id_reg_order, id_good) values (2, 2);
+insert into reg_order_good (id_reg_order, id_good) values (2, 3);
 
 insert into order_good (id_order, id_good) values (1, 1);
 insert into order_good (id_order, id_good) values (2, 2);

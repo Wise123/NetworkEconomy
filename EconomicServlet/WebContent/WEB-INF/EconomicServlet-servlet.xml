@@ -77,6 +77,10 @@
 		<constructor-arg ref="dataSource"/>
 	</bean>
 	
+		<bean id="RegOrdersGoodDao" class="dao.RegOrdersGoodDao">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+	
 	
 	<bean id="applicationContextProvder" class="util.ApplicationContextProvider"/>
 	

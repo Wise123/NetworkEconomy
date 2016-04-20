@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import tables.Order;
 import tables.RegularOrder;
 
 
@@ -19,14 +20,17 @@ public class RegularOrdersDao {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	JdbcTemplate jdbcTemplate;
 	
-	String sqlSelectAll = "select * from regular_orders";
+	String sqlCreate = "insert into regular_orders (id_regord, id_client, count_of_goods, price, count_of_months) values (:id_regord, :id_client, :count_of_goods, :price, :count_of_months)";
+	
+	String sqlSelectAll = "select name, id_regord, id_client, client, count_of_goods, price, count_of_months from regular_orders join clients on regular_orders.id_client = clients.id_client";
+	
 	String sqlById = "select * from regular_orders where id_regord=:id_regord";
 	
 	String sqlUpdateById = "update regular_orders set "
 			+ "id_client=:id_client, count_of_goods=:count_of_goods, name=:name, price=:price, count_of_months=:count_of_months"
 			+ "where id_regord=:id_regord";
 	
-	String sqlDeleteById = "delete from regular_orders where id_regord=:id_regord";
+	String sqlDeleteById = "delete from regular_orders where id_regord=";
 	
 	public RegularOrdersDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -39,8 +43,8 @@ public class RegularOrdersDao {
 			RegularOrder temp=new RegularOrder();
 			temp.setIdRegord(rs.getInt("id_regord"));
 			temp.setIdClient(rs.getInt("id_client"));
+			temp.setClient(rs.getString("name"));
 			temp.setCountOfGoods(rs.getInt("count_of_goods"));
-			temp.setName(rs.getString("name"));
 			temp.setPrice(rs.getInt("price"));
 			temp.setCountOfMonth(rs.getInt("count_of_months"));
 			return temp;
@@ -72,9 +76,18 @@ public class RegularOrdersDao {
 		namedParameterJdbcTemplate.update(sqlUpdateById, parameters);
 	}
 	
-	public RegularOrder deleteByIdOrder(int id){
-		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_regorg", Integer.toString(id));
-		return namedParameterJdbcTemplate.queryForObject(sqlDeleteById, parameters, rowMapper);
+	public void deleteByIdOrder(int id){
+		jdbcTemplate.update(sqlDeleteById + id);
 	}
+
+	public void create(RegularOrder arg) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_regord", String.valueOf(arg.getIdRegord()));
+		parameters.put("id_client", String.valueOf(arg.getIdClient()));
+		parameters.put("count_of_goods", String.valueOf(arg.getCountOfGoods()));
+		parameters.put("price", String.valueOf(arg.getPrice()));
+		parameters.put("count_of_months", String.valueOf(arg.getCountOfMonth()));
+		namedParameterJdbcTemplate.update(sqlCreate,parameters);
+	}
+
 }
