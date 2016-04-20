@@ -24,6 +24,7 @@ import tables.Provider;
 import util.ApplicationContextProvider;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
@@ -271,6 +272,7 @@ public class DataController {
 		OrdersDao ordersDao =  (OrdersDao) applicationContextProvider.getApplicationContext().getBean("OrdersDao");
 		OrdersGoodDao ordersGoodDao =  (OrdersGoodDao) applicationContextProvider.getApplicationContext().getBean("OrdersGoodDao");
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 			List<Good> goods = mapper.readValue(goodsJson,TypeFactory.defaultInstance().constructCollectionType(List.class,  
 					   Good.class));
