@@ -4,7 +4,7 @@
 	
 	<h1>Каталог {{category.toLowerCase()}}</h1>
 	
-	<div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-repeat="i in catalog | filter:countOnStock=0 ">
+	<div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" ng-repeat="i in catalog  ">
 		<div class="thumbnail">
 			<img ng-src="{{urlPath+i.imagePath}}" alt="{{i.name}}" style="height:200px">
 			<div class="caption" style="height:250px;">

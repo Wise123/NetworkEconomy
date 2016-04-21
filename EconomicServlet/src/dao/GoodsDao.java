@@ -27,8 +27,8 @@ public class GoodsDao {
 	String sqlSelectAllCategories = "select category from goods group by category";
 	
 	
-	String sqlSelectAllWithProviderName = "select goods.id_good, providers.title as id_provider, goods.name,goods.price,goods.description,goods.category,goods.count_on_stock,goods.image_path from goods inner join providers on goods.id_good=providers.id_provider";
-	String sqlSelectByCategoryWithProviderName = "select goods.id_good, providers.title as id_provider, goods.name,goods.price,goods.description,goods.category,goods.count_on_stock,goods.image_path from goods inner join providers on goods.id_good=providers.id_provider where goods.category=:category";
+	String sqlSelectAllWithProviderName = "select goods.id_good, providers.title as id_provider, goods.name,goods.price,goods.description,goods.category,goods.count_on_stock,goods.image_path from goods inner join providers on goods.id_provider=providers.id_provider";
+	String sqlSelectByCategoryWithProviderName = "select goods.id_good, providers.title as id_provider, goods.name,goods.price,goods.description,goods.category,goods.count_on_stock,goods.image_path from goods inner join providers on goods.id_provider=providers.id_provider where goods.category=:category";
 	
 	
 	String sqlUpdateById = "update goods set " +
