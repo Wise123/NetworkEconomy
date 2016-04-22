@@ -3,16 +3,7 @@ var app = angular.module('app',["ui.router",'ngSanitize']);
 
 
 var cart = [];
-var client = {
-		idClient:1,
-		name: "Иван",
-		lastName: "Иванович",
-		surName: "Иванов",
-		city: "Москва",
-		country: "Россия",
-		postIndex: 123456,
-		password: 123456,
-};
+var client = {};
 
 
 app.controller('mainController', ['$scope', '$http', function($scope, $http) {
@@ -28,7 +19,17 @@ app.controller('mainController', ['$scope', '$http', function($scope, $http) {
 		return client.admin;
 	}
 	
-	
+	$scope.$on("categoryChanged", function(event, data){
+		console.log('categoryChanged');
+		$http({
+			method: 'GET',
+			url: urlPath+'/getAllCategories',
+		}).then(function successCallback(response) {
+			$scope.categories = response.data;
+		}, function errorCallback(response) {
+			console.log("Ошибка при получении категорий");
+		});
+	});
 	
 	$scope.categories = [];
 	

@@ -3,7 +3,9 @@
 	
 	
 	angular.module('app').controller('regularOrderEditController', ['$scope','$sce', '$state',"$http", "$stateParams", function($scope, $sce, $state, $http, $stateParams){
-		
+		if (angular.equals(client,{})){
+			$state.go('login');
+		}
 		$scope.regularOrders = [];
 		$scope.goods = [];
 		

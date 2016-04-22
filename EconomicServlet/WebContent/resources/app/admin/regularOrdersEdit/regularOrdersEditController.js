@@ -3,7 +3,9 @@
 	
 	
 	angular.module('app').controller('regularOrdersEditController', ['$scope','$sce', '$state','$http', function($scope, $sce, $state, $http){
-		
+		if (angular.equals(client,{})){
+			$state.go('login');
+		}
 		
 		$scope.regularOrders = [];
 
@@ -23,7 +25,7 @@
 			$http({
 				method: 'GET',
 				url: urlPath+'/deleteRegularOrder',
-				params:{id_Order:order.idOrder}
+				params:{idRegOrder:order.idOrder}
 			}).then(function successCallback(response) {
 				
 				$http({

@@ -3,6 +3,11 @@
 	
 	
 	angular.module('app').controller('adminController', ['$scope','$sce', '$state', function($scope, $sce, $state){
+		
+		if (angular.equals(client,{})){
+			$state.go('login');
+		}
+		
 		$scope.currentTab = 0;
 		$state.go("admin.goodsEdit");
 		$scope.getClassForTab = function(tabNum){

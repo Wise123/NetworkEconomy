@@ -3,7 +3,9 @@
 	
 	
 	angular.module('app').controller('providersEditController', ['$scope','$sce', '$state', '$http', function($scope, $sce, $state, $http){
-		
+		if (angular.equals(client,{})){
+			$state.go('login');
+		}
 		
 		$scope.providers = [];
 		

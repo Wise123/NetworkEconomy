@@ -4,8 +4,12 @@
 	
 	angular.module('app').controller('ordersEditController', ['$scope','$sce', '$state',"$http", '$stateParams', function($scope, $sce, $state, $http, $stateParams){
 		
+		if (angular.equals(client,{})){
+			$state.go('login');
+		}
+		
 		$scope.orders = [];
-
+		
 		
 		
 		$http({
@@ -22,7 +26,7 @@
 			$http({
 				method: 'GET',
 				url: urlPath+'/deleteOrder',
-				params:{id_Order:order.idOrder}
+				params:{idOrder:order.idOrder}
 			}).then(function successCallback(response) {
 				
 				$http({

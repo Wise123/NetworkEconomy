@@ -5,6 +5,10 @@
 	
 	angular.module('app').controller('goodsEditController', ['$scope','$sce', '$state', '$http', function($scope, $sce, $state, $http){
 		
+		if (angular.equals(client,{})){
+			$state.go('login');
+		}
+		
 		$scope.goods = [];
 		$scope.originGoods = []
 		
@@ -64,6 +68,7 @@
 						url: urlPath+'/createGood',
 						params:{jsonGood:angular.toJson($scope.goods[i])}
 					}).then(function successCallback(response) {
+						$scope.$emit('categoryChanged', {});
 					}, function errorCallback(response) {
 						console.log("Ошибка при добавлении товаров");
 					});
@@ -84,6 +89,7 @@
 						url: urlPath+'/deleteGood',
 						params:{idGood:$scope.originGoods[j].idGood}
 					}).then(function successCallback(response) {
+						$scope.$emit('categoryChanged', {});
 					}, function errorCallback(response) {
 						console.log("Ошибка при удалении товаров");
 					});
