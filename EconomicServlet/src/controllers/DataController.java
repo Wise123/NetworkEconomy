@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -397,8 +398,10 @@ public class DataController {
 		
 		String tmp = new String(IOUtils.toByteArray(request.getInputStream()),"UTF-8");
 		System.out.println(tmp);
+		String tmp2 = tmp.substring(22, tmp.length()-1);
 		
-	
+		byte[] decoded = Base64.getDecoder().decode(tmp2);
+		
 		Map<String, String[]> parameterMap = request.getParameterMap();
 		parameterMap.forEach( (x,y) -> {
 			System.out.println(x + ": " + Arrays.toString(y));
@@ -408,8 +411,8 @@ public class DataController {
 		System.out.println(filename.toUpperCase());
 		//if (!imgFile.isEmpty()) {
 			try {
-				byte[] bytes = IOUtils.toByteArray(request.getInputStream());
-
+				byte[] bytes = decoded;//IOUtils.toByteArray(request.getInputStream());
+				
 				// Creating the directory to store file
 				
 				
@@ -421,7 +424,7 @@ public class DataController {
 				stream.close();
 				
 				if (good != null) {
-					good.setImagePath("/resources/img/" + filename + ".png");
+					good.setImagePath("resources/img/" + filename + ".png");
 					goodsDao.create(good);
 				}
 				
