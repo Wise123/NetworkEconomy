@@ -78,10 +78,8 @@
 								price:$scope.goods[i].price
 							}
 						},
-						data:{
-							img_file:$scope.goods[i].file
-						}
-					}).then(function successCallback(response) {
+						data:$scope.goods[i].file
+						}).then(function successCallback(response) {
 						$scope.$emit('categoryChanged', {});
 					}, function errorCallback(response) {
 						console.log("Ошибка при добавлении товаров");
