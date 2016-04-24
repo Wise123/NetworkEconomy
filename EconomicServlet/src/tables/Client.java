@@ -82,7 +82,6 @@ public class Client {
 	
 	
 	public Client() {
-		// TODO Auto-generated constructor stub
 	}
 	public Client(int idClient, String name, String lastName, String surname, String city, String country,
 			int postIndex, String password, boolean isAdmin) {

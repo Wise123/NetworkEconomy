@@ -20,6 +20,10 @@ public class ClientsDao {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	JdbcTemplate jdbcTemplate;
 	
+	String insertCl = "insert into clients (id_client, name, lastname, surname, city, country, post_index, password, isadmin) values (:id_client, :name, :lastname, :surname, :city, :country, :post_index, :password, :isadmin)";
+
+
+	
 	String sqlSelectAll = "select * from clients";
 	String sqlById = "select * from clients where id_client=:id_client";
 	
@@ -30,6 +34,8 @@ public class ClientsDao {
 			+ "post_index=:post_index, password=:password "
 			+ "isadmin=:isadmin"
 			+ "where id_client=:id_client";
+	
+	String sqlUpdatePassById = "update clients set password=:password where id_client=:id_client";
 	
 	String sqlDeleteById = "delete from clients where id_client=:id_client";
 	
@@ -72,9 +78,9 @@ public class ClientsDao {
 	
 	public void update(Client arg){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
-		parameters.put("id_cleint", Integer.toString(arg.getIdClient()));
+		parameters.put("id_client", Integer.toString(arg.getIdClient()));
 		parameters.put("name", arg.getName());
-		parameters.put("last_name", arg.getLastName());
+		parameters.put("lastname", arg.getLastName());
 		parameters.put("surname", arg.getSurname());
 		parameters.put("city", arg.getCity());
 		parameters.put("country", arg.getCountry());
@@ -95,5 +101,26 @@ public class ClientsDao {
 		parameters.put("name", login);
 		parameters.put("password", password);
 		return namedParameterJdbcTemplate.queryForObject(sqlFindByNameAndPass, parameters, rowMapper);
+	}
+
+	public int updatePass(Integer id, String newPassword) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_client", Integer.toString(id));
+		parameters.put("password", newPassword);
+		return namedParameterJdbcTemplate.update(sqlUpdatePassById, parameters);
+	}
+
+	public void create(Client arg) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_client", Integer.toString(arg.getIdClient()));
+		parameters.put("name", arg.getName());
+		parameters.put("lastname", arg.getLastName());
+		parameters.put("surname", arg.getSurname());
+		parameters.put("city", arg.getCity());
+		parameters.put("country", arg.getCountry());
+		parameters.put("post_index", Integer.toString(arg.getPostIndex()));
+		parameters.put("password", arg.getPassword());
+		parameters.put("isadmin", Boolean.toString(arg.isAdmin()));
+		namedParameterJdbcTemplate.update(insertCl, parameters);
 	}
 }

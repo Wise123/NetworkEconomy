@@ -50,6 +50,19 @@ public class OrdersDao {
 		}
 	};
 	
+	RowMapper<Order> rowMapper2 = new RowMapper<Order>(){
+		@Override
+		public Order mapRow(ResultSet rs, int rownumber) throws SQLException{
+			Order temp=new Order();
+			temp.setIdOrder(rs.getInt("id_order"));
+			temp.setIdClient(rs.getInt("id_client"));
+			temp.setDate(rs.getDate("date"));
+			temp.setPrice(rs.getInt("price"));
+			temp.setStatus(rs.getBoolean("status"));
+			return temp;
+		}
+	};
+	
 	public List<Order> findAll(){
 		return jdbcTemplate.query(sqlSelectAll, rowMapper);
 	}
@@ -57,7 +70,7 @@ public class OrdersDao {
 	public List<Order> findByIdClient(int id){
 		Map <String, String> parameters = new LinkedHashMap<String, String>();
 		parameters.put("id_client", Integer.toString(id));
-		return namedParameterJdbcTemplate.query(sqlByIdClient, parameters, rowMapper);
+		return namedParameterJdbcTemplate.query(sqlByIdClient, parameters, rowMapper2);
 	}
 	
 	public Order findByIdOrder(int id){
@@ -91,6 +104,7 @@ public class OrdersDao {
 		parameters.put("status", String.valueOf(arg.isStatus()));
 		namedParameterJdbcTemplate.update(sqlCreate,parameters);
 	}
+
 	
 	
 }

@@ -32,6 +32,8 @@ public class RegularOrdersDao {
 	
 	String sqlDeleteById = "delete from regular_orders where id_regord=";
 	
+	String sqlByClientId = "select * from regular_orders where id_client=:id_client";
+	
 	public RegularOrdersDao(DataSource dataSource){
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		jdbcTemplate = new JdbcTemplate(dataSource);
@@ -44,6 +46,19 @@ public class RegularOrdersDao {
 			temp.setIdRegord(rs.getInt("id_regord"));
 			temp.setIdClient(rs.getInt("id_client"));
 			temp.setClient(rs.getString("name"));
+			temp.setCountOfGoods(rs.getInt("count_of_goods"));
+			temp.setPrice(rs.getInt("price"));
+			temp.setCountOfMonth(rs.getInt("count_of_months"));
+			return temp;
+		}
+	};
+	
+	RowMapper<RegularOrder> rowMapper2 = new RowMapper<RegularOrder>(){
+		@Override
+		public RegularOrder mapRow(ResultSet rs, int rownumber) throws SQLException{
+			RegularOrder temp=new RegularOrder();
+			temp.setIdRegord(rs.getInt("id_regord"));
+			temp.setIdClient(rs.getInt("id_client"));
 			temp.setCountOfGoods(rs.getInt("count_of_goods"));
 			temp.setPrice(rs.getInt("price"));
 			temp.setCountOfMonth(rs.getInt("count_of_months"));
@@ -88,6 +103,12 @@ public class RegularOrdersDao {
 		parameters.put("price", String.valueOf(arg.getPrice()));
 		parameters.put("count_of_months", String.valueOf(arg.getCountOfMonth()));
 		namedParameterJdbcTemplate.update(sqlCreate,parameters);
+	}
+
+	public List<RegularOrder> findByIdClient(Integer userId) {
+		Map <String, String> parameters = new LinkedHashMap<String, String>();
+		parameters.put("id_client", Integer.toString(userId));
+		return namedParameterJdbcTemplate.query(sqlByClientId, parameters, rowMapper2);
 	}
 
 }
