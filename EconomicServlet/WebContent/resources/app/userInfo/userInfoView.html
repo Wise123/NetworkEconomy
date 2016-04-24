@@ -16,7 +16,6 @@
 		
 		<tr>
 			<td><b>id</b></td>
-			<td><b>Клиент</b></td>
 			<td><b>Дата</b></td>
 			<td><b>Стоимость</b></td>
 			<td><b>Статус</b></td>
@@ -25,7 +24,6 @@
 		
 		<tr ng-repeat="i in orders">
 			<td><button class="btn btn-link" ui-sref="orderEdit({id:i.idOrder})">{{i.idOrder}}</button></td>
-			<td>{{i.client}}</td>
 			<td>{{i.date}}</td>
 			<td>{{i.price}}</td>
 			<td>{{i.status ? 'Выполнен' : 'Не выполнен'}}</td>
@@ -42,8 +40,6 @@
 		
 		<tr>
 			<td><b>id</b></td>
-			<td><b>Клиент</b></td>
-			<td><b>Дата</b></td>
 			<td><b>Стоимость</b></td>
 			<td><b>Статус</b></td>
 			<td></td>
@@ -51,8 +47,6 @@
 		
 		<tr ng-repeat="i in regularOrders">
 			<td><button class="btn btn-link" ui-sref="regularOrderEdit({id:i.idRegiularOrder})">{{i.idRegord}}</button></td>
-			<td>{{i.client}}</td>
-			<td>{{i.date}}</td>
 			<td>{{i.price}}</td>
 			<td>{{i.status ? 'Выполнен' : 'Не выполнен'}}</td>
 			<td><i class="glyphicon glyphicon-remove" ng-click="removeRegularOrder(i)"></i></td>
