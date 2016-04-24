@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="resources/lib/angular-1.5.0/angular.min.js"></script>
 		<script type="text/javascript" src="resources/lib/angular-1.5.0/angular-sanitize.js"></script>
 		<script type="text/javascript" src="resources/lib/angular-ui-router.js"></script>
+		<script type="text/javascript" src="resources/lib/angular-file-upload.min.js"></script>
 		
 		<script type="text/javascript" src="resources/app/app.js"></script>
 	</head>
@@ -68,4 +69,5 @@
 	<script type="text/javascript" src="resources/app/admin/ordersEdit/orderEdit/orderEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/regularOrdersEdit/regularOrdersEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/providersEdit/providersEditController.js"></script>
+	<script type="text/javascript" src="resources/app/userInfo/userInfoController.js"></script>
 </html>

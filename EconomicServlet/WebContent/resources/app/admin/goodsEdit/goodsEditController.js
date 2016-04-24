@@ -66,7 +66,20 @@
 					$http({
 						method: 'POST',
 						url: urlPath+'/createGood',
-						params:{jsonGood:angular.toJson($scope.goods[i])}
+						headers: {'Content-Type': 'multipart/form-data'},
+						data:{
+							jsonGood:{
+								category:$scope.goods[i].category,
+								countOnStock:$scope.goods[i].countOnStock,
+								description:$scope.goods[i].description,
+								idGood:$scope.goods[i].idGood,
+								idProvider:$scope.goods[i].idProvider,
+								imagePath:"",
+								name:$scope.goods[i].name,
+								price:$scope.goods[i].price
+							},
+							img_file:$scope.goods[i].file
+						}
 					}).then(function successCallback(response) {
 						$scope.$emit('categoryChanged', {});
 					}, function errorCallback(response) {

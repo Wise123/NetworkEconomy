@@ -1,9 +1,29 @@
-var app = angular.module('app',["ui.router",'ngSanitize']);
+var app = angular.module('app',["ui.router",'ngSanitize','angularFileUpload']);
  
 
 
 var cart = [];
 var client = {};
+
+
+app.directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);
 
 
 app.controller('mainController', ['$scope', '$http', function($scope, $http) {
