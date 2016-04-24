@@ -38,7 +38,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class=""><a href="" ui-sref="cart"><i class="glyphicon glyphicon-shopping-cart"></i> {{(getCart()).length}}</a></li>
-						<li><a><i class="glyphicon glyphicon-user"></i> {{(getClient()).surName + ' ' +(getClient()).name + ' ' + (getClient()).lastName}}</a></li>
+						<li ui-sref="userInfo"><a><i class="glyphicon glyphicon-user"></i> {{(getClient()).surName + ' ' +(getClient()).name + ' ' + (getClient()).lastName}}</a></li>
 						<li ui-sref="login"><a href=""><i class="glyphicon glyphicon-off" style="color:red"></i></a></li>
 					</ul>
 				</div><!--/.nav-collapse -->

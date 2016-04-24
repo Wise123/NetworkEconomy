@@ -385,7 +385,7 @@ public class DataController {
 	
 	//@RequestParam("img_file") MultipartFile imgFile
 	@RequestMapping(value = "/createGood", method=RequestMethod.POST)
-	public String createGood(/*@RequestBody MultipartFile imgFile,*/ HttpServletRequest request, HttpServletResponse response, @RequestParam(required=true) String jsonGood) throws UnsupportedEncodingException, IOException {
+	public void createGood(/*@RequestBody MultipartFile imgFile,*/ HttpServletRequest request, HttpServletResponse response, @RequestParam(required=true) String jsonGood) throws UnsupportedEncodingException, IOException {
 		System.out.println(jsonGood);
 		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
 		ObjectMapper mapper = new ObjectMapper();
@@ -431,14 +431,14 @@ public class DataController {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				return "You failed to upload " + filename + " => " + e.getMessage();
+				//return "You failed to upload " + filename + " => " + e.getMessage();
 			}
 		//} else {
 		//	return "You failed to upload " + filename + " because the file was empty.";
 		//}
 		
 	
-		return "ok";
+		//return "ok";
 	}
 	
 	

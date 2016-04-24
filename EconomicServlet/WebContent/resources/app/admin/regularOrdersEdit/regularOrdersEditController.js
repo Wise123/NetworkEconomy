@@ -25,7 +25,7 @@
 			$http({
 				method: 'GET',
 				url: urlPath+'/deleteRegularOrder',
-				params:{idRegOrder:order.idOrder}
+				params:{idRegOrder:order.idRegord}
 			}).then(function successCallback(response) {
 				
 				$http({

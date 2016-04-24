@@ -44,7 +44,19 @@
 							$http({
 								method: 'POST',
 								url: urlPath+'/updateGood',
-								params:{jsonGood:angular.toJson($scope.goods[i])}
+								params:{
+									jsonGood:{
+										category:$scope.goods[i].category,
+										countOnStock:$scope.goods[i].countOnStock,
+										description:$scope.goods[i].description,
+										idGood:$scope.goods[i].idGood,
+										idProvider:$scope.goods[i].idProvider,
+										imagePath:"",
+										name:$scope.goods[i].name,
+										price:$scope.goods[i].price
+									}
+								},
+								data:$scope.goods[i].file
 							}).then(function successCallback(response) {
 							}, function errorCallback(response) {
 								console.log("Ошибка при обновлении товаров");
