@@ -450,10 +450,90 @@ public class DataController {
 	}
 	
 	
-	/*@RequestMapping("/getOrdersByUser")
+	@RequestMapping(value="/getOrdersByUser", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public String test(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public List<Order> getOrdersByUser(@RequestParam Integer userId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		OrdersDao ordersDao =  (OrdersDao) applicationContextProvider.getApplicationContext().getBean("OrdersDao");
+		//ObjectMapper mapper = new ObjectMapper();
+		/*try {
+			mapper.writeValue(response.getOutputStream(), ordersDao.findAll());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
+		return ordersDao.findByIdClient(userId);
+	}
+	
+	
+	@RequestMapping(value="/getRegularOrdersByUser", method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public List<RegularOrder> getRegularOrdersByUser(@RequestParam Integer userId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RegularOrdersDao regularOrdersDao =  (RegularOrdersDao) applicationContextProvider.getApplicationContext().getBean("RegularOrdersDao");
+		//ObjectMapper mapper = new ObjectMapper();
+		/*try {
+			mapper.writeValue(response.getOutputStream(), ordersDao.findAll());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
+		return regularOrdersDao.findByIdClient(userId);
+	}
+	
+	
+	@RequestMapping(value="/changePassword",produces = "text/plain",method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public void changePassword(HttpServletResponse response,@RequestParam(required=true) Integer id,@RequestParam(required=true) String newPassword) throws JsonProcessingException {
+		//response.setCharacterEncoding("UTF-8");
+		String errorJson = "{\"error\": \"incorrect login or pass\"}";	
+		ClientsDao clientsDao =  (ClientsDao) applicationContextProvider.getApplicationContext().getBean("ClientsDao");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			int Upd = clientsDao.updatePass(id,newPassword);
+			//String result = new String(mapper.writeValueAsString(client).getBytes(),"UTF-8");
+			//System.out.println(result);
+			response.getWriter().write("OK");
+		}catch (EmptyResultDataAccessException | IOException e){
+			try {
+				response.getOutputStream().write(errorJson.getBytes());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	@RequestMapping(value="/allClients",produces = "text/plain",method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public List<Client> getAllClients(HttpServletResponse response) throws JsonProcessingException {
+		String errorJson = "{\"error\": \"incorrect login or pass\"}";	
+		ClientsDao clientsDao =  (ClientsDao) applicationContextProvider.getApplicationContext().getBean("ClientsDao");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return clientsDao.findAll();
+		}catch (EmptyResultDataAccessException e){
+			try {
+				response.getOutputStream().write(errorJson.getBytes());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	@RequestMapping(value = "/createUser", method=RequestMethod.POST)
+	public void createUser(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=true) String jsonUser) {
+		System.out.println(jsonUser);
+		ClientsDao clientsDao =  (ClientsDao) applicationContextProvider.getApplicationContext().getBean("ClientsDao");
+		ObjectMapper mapper = new ObjectMapper();
+		Client client= null;
+		try {
+			client = mapper.readValue(jsonUser, Client.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		
-	}*/
+		if (client != null) {
+			clientsDao.create(client);
+		}
+		System.out.println(client);
+	}
+	
+
 }
