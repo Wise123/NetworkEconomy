@@ -14,8 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -383,7 +385,7 @@ public class DataController {
 	
 	//@RequestParam("img_file") MultipartFile imgFile
 	@RequestMapping(value = "/createGood", method=RequestMethod.POST)
-	public String createGood(@RequestParam("img_file") MultipartFile imgFile, HttpServletRequest request, HttpServletResponse response, @RequestParam(required=true) String jsonGood) {
+	public String createGood(/*@RequestBody MultipartFile imgFile,*/ HttpServletRequest request, HttpServletResponse response, @RequestParam(required=true) String jsonGood) {
 		System.out.println(jsonGood);
 		GoodsDao goodsDao =  (GoodsDao) applicationContextProvider.getApplicationContext().getBean("GoodsDao");
 		ObjectMapper mapper = new ObjectMapper();
@@ -400,11 +402,11 @@ public class DataController {
 		parameterMap.forEach( (x,y) -> {
 			System.out.println(x + ": " + Arrays.toString(y));
 		});
-		String filename = imgFile.getOriginalFilename();
+		String filename = Integer.toString(good.getIdGood());
 		System.out.println(filename.toUpperCase());
-		if (!imgFile.isEmpty()) {
+		//if (!imgFile.isEmpty()) {
 			try {
-				byte[] bytes = imgFile.getBytes();
+				byte[] bytes = IOUtils.toByteArray(request.getInputStream());
 
 				// Creating the directory to store file
 				String rootPath = System.getProperty("catalina.home");
@@ -438,11 +440,12 @@ public class DataController {
 				
 				
 			} catch (Exception e) {
+				e.printStackTrace();
 				return "You failed to upload " + filename + " => " + e.getMessage();
 			}
-		} else {
-			return "You failed to upload " + filename + " because the file was empty.";
-		}
+		//} else {
+		//	return "You failed to upload " + filename + " because the file was empty.";
+		//}
 		
 	
 		

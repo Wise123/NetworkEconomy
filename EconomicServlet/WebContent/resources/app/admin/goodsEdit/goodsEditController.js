@@ -66,8 +66,7 @@
 					$http({
 						method: 'POST',
 						url: urlPath+'/createGood',
-						headers: {'Content-Type': 'multipart/form-data'},
-						data:{
+						params:{
 							jsonGood:{
 								category:$scope.goods[i].category,
 								countOnStock:$scope.goods[i].countOnStock,
@@ -77,7 +76,9 @@
 								imagePath:"",
 								name:$scope.goods[i].name,
 								price:$scope.goods[i].price
-							},
+							}
+						},
+						data:{
 							img_file:$scope.goods[i].file
 						}
 					}).then(function successCallback(response) {
