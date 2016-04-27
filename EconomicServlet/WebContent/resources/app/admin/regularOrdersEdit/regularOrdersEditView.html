@@ -12,7 +12,7 @@
 		</tr>
 		
 		<tr ng-repeat="i in regularOrders">
-			<td><button class="btn btn-link" ui-sref="regularOrderEdit({id:i.idRegiularOrder})">{{i.idRegord}}</button></td>
+			<td><button class="btn btn-link" ui-sref="regularOrderEdit({id:i.idRegord})">{{i.idRegord}}</button></td>
 			<td>{{i.idClient}}</td>
 			<td>{{i.price}}</td>
 			<td>{{i.status ? 'Выполнен' : 'Не выполнен'}}</td>

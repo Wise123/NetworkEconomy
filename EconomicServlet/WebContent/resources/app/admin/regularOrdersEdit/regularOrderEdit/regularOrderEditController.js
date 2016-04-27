@@ -24,7 +24,7 @@
 			method: 'GET',
 			url: urlPath+'/getRegularOrder',
 			params:{
-				orderId:$stateParams.id
+				idRegOrder:$stateParams.id
 			}
 		}).then(function successCallback(response) {
 			$scope.goods = angular.copy(response.data);

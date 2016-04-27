@@ -70,4 +70,5 @@
 	<script type="text/javascript" src="resources/app/admin/regularOrdersEdit/regularOrdersEditController.js"></script>
 	<script type="text/javascript" src="resources/app/admin/providersEdit/providersEditController.js"></script>
 	<script type="text/javascript" src="resources/app/userInfo/userInfoController.js"></script>
+	<script type="text/javascript" src="resources/app/admin/regularOrdersEdit/regularOrderEdit/regularOrderEditController.js"></script>
 </html>
