@@ -112,6 +112,10 @@ app.config(function($stateProvider, $urlRouterProvider){
 		url: "/userInfo",
 		templateUrl:"resources/app/userInfo/userInfoView.html",
 		controller:"userInfoController"
+	}).state("regularOrderEdit", {
+		url: "/regularOrderEdit/:id",
+		templateUrl:"resources/app/admin/regularOrdersEdit/regularOrderEdit/regularOrderEditView.html",
+		controller:"regularOrderEditController"
 	})
 	
 	
